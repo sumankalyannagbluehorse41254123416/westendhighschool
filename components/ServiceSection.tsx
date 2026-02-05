@@ -3,13 +3,12 @@ import Link from "next/link";
 
 export default function ServiceSection() {
   return (
-    <div className="service_section03">
-      <div className="row">
+    <div className="service_section03 container">
         {/* LEFT SIDE */}
-        <div className="col-lg-7 col-md-7">
-          <div className="row">
+        <div className="service_left">
+          
             {/* Transport */}
-            <div className="col-lg-6 col-md-6">
+            <div className="">
               <Link href="/infrastructure/transport">
                 <div className="service_box">
                   <div className="icon_img">
@@ -41,7 +40,7 @@ export default function ServiceSection() {
             </div>
 
             {/* Hostel */}
-            <div className="col-lg-6 col-md-6">
+            <div className="">
               <Link href="/infrastructure/hostel">
                 <div className="service_box">
                   <div className="icon_img">
@@ -72,7 +71,7 @@ export default function ServiceSection() {
                 </div>
               </Link>
             </div>
-          </div>
+          
         </div>
 
         {/* RIGHT SIDE */}
@@ -118,7 +117,7 @@ export default function ServiceSection() {
             </ul>
           </div>
         </div>
-      </div>
+      
     </div>
   );
 }
