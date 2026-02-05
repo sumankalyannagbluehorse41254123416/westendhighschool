@@ -4,7 +4,7 @@ const Header: React.FC = () => {
   return (
     <div className="container">
       <div className="top clears">
-        <div className="wlcm">
+        {/* <div className="wlcm">
           <Image
             src="/images/logo.jfif"
             width={85}
@@ -15,7 +15,7 @@ const Header: React.FC = () => {
               width: "85px",
             }}
           />
-        </div>
+        </div> */}
 
         <div
           id="mylogo"
