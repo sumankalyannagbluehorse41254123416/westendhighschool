@@ -5,8 +5,8 @@ import "../public/css/style.css";
 import "../public/css/flexslider.css";
 import "../public/css/slick.css";
 import FooterBottom from "../components/FooterBottom";
-
 import Header from "../components/Header";
+import Menu from "../components/Menu";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +33,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
      
           <Header />
-     
+     <Menu />
         {children}
         <FooterBottom />
       </body>
