@@ -1,64 +1,107 @@
 import Image from "next/image";
+import { fetchPageData } from "@/services/fetchBanner.service";
+import { headers } from "next/headers";
 
-const BannerSection = () => {
+/* ---------------- Helper ---------------- */
+
+const stripHtml = (html?: string) =>
+  html ? html.replace(/<[^>]*>/g, "") : "";
+
+/* ---------------- Types ---------------- */
+
+interface Section {
+  title?: string;
+  shortDescription?: string;
+  description?: string;
+  image?: string;
+  bannerImage?: string;
+  subsections?: Section[];
+  [key: string]: unknown;
+}
+
+interface SiteData {
+  pageItemdataWithSubsection?: Section[];
+  data?: {
+    pageItemdataWithSubsection?: Section[];
+  };
+}
+
+/* ---------------- Server Component ---------------- */
+
+export default async function BannerSection() {
+  // 1️⃣ Read request headers
+  const rqHeaders = headers();
+  const host = (await rqHeaders).get("host") || "localhost:3000";
+  const headersObj = Object.fromEntries((await rqHeaders).entries());
+
+  // 2️⃣ Fetch banner data
+  let siteData: any = {};
+
+  try {
+    siteData = await fetchPageData(
+      { host, ...headersObj },
+      "ec136779-28a8-43b8-b180-7c36440fe58f" // ✅ Banner ID
+    );
+    console.log("SITE DATA:", siteData);
+  } catch (error) {
+    console.error("Banner fetch failed");
+    return null;
+  }
+
+  // 3️⃣ Normalize response
+  const sections = siteData.singlebannerData
+  ;
+
+  if (!sections.length) {
+    console.warn("No banner data found");
+    return null;
+  }
+
+  // 4️⃣ Banner index = 0
+  const banner = sections[0];
+
+  const imageUrl =
+    banner.desktopImage ||
+    "/images/default-banner.jpg";
+
+  const title = stripHtml(banner.title);
+  const subtitle = stripHtml(banner.description);
+
+  /* ---------------- JSX ---------------- */
+
   return (
-    <div className="banner_wrap">
-      <ul className="banner_slide slick-initialized slick-slider">
-        <div className="slick-list draggable" style={{ height: "732px" }}>
-          <div
-            className="slick-track"
-            style={{
-              opacity: 1,
-              width: "690px",
-              transform: "translate3d(0px, 0px, 0px)",
-            }}
-          >
-            <div
-              className="slick-slide slick-current slick-active"
-              data-slick-index="0"
-              aria-hidden="false"
-              style={{ width: "690px" }}
+    <div id="banner" role="banner">
+      ok
+      <div className="flexslider">
+        <div className="banner_wrap">
+          <ul className="banner_slide">
+            <li
+              style={{
+                width: "100%",
+                float: "left",
+                display: "inline-block",
+              }}
             >
-              <div>
-                <li
-                  className="clone"
-                  aria-hidden="true"
-                  style={{
-                    width: "100%",
-                    float: "left",
-                    display: "inline-block",
-                  }}
-                >
-                  {/* Image wrapper */}
-                  <div
-                    style={{
-                      position: "relative",
-                      width: "100%",
-                      height: "732px",
-                    }}
-                  >
-                    <Image
-                      src="/images/DSCN1198.jpg"
-                      alt=""
-                      fill
-                      draggable={false}
-                      style={{ objectFit: "cover" }}
-                      priority
-                    />
-                  </div>
+              {/* -------- Banner Image -------- */}
+              <Image
+                src={imageUrl}
+                alt={title || "Banner"}
+                width={690}
+                height={732}
+                style={{ width: "100%", height: "auto" }}
+                draggable={false}
+                priority
+              />
 
-                  <div className="banner_caption">
-                    <h2>LEARN TO LIVE</h2>
-                    <h3>LEARN TO GIVE</h3>
-                  </div>
-                </li>
+              {/* -------- Banner Caption -------- */}
+              <div className="banner_caption">
+                {title && <h2>{title}</h2>}
+                {subtitle && <h3>{subtitle}</h3>}
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
-      </ul>
+      </div>
     </div>
   );
-};
-
-export default BannerSection;
+}
