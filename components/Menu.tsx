@@ -2,8 +2,9 @@ import Link from "next/link";
 
 export default function Menu() {
   return (
-    
-      <div className="menu_bar">
+
+    <div className="menu_bar">
+      <div className="container">
         <div className="sb_menu">
           <ul>
             <li>
@@ -155,10 +156,17 @@ export default function Menu() {
               </Link>
             </li>
           </ul>
-
+          <div className="mobile_nav">
+          <div className="toggle-menu-button">
+            <span className="line"></span>
+            <span className="line"></span>
+            <span className="line"></span>
+          </div>
+          </div>
           <div className="clear"></div>
         </div>
       </div>
-    
+    </div>
+
   );
 }
