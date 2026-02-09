@@ -3,7 +3,7 @@ import Image from "next/image";
 const Header: React.FC = () => {
   return (
     <div className="container">
-      <div className="top clears">
+      <div className="top clears top_header">
         {/* <div className="wlcm">
           <Image
             src="/images/logo.jfif"

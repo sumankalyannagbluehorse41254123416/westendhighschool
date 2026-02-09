@@ -19,18 +19,20 @@ const WelcomeSection = ({ section }: WelcomeSectionProps) => {
 
   return (
     <div className="mid_con">
-      <div className="site_title">
-        <h2>{title}</h2>
-      </div>
+      <div className="container">
+        <div className="site_title">
+          <h2>{title}</h2>
+        </div>
 
-      <div className="wel_info">
-        <p></p>
+        <div className="wel_info">
+          {/* <p></p> */}
 
-        <p>{description}</p>
+          <p>{description}</p>
 
-        <p></p>
+          {/* <p></p> */}
 
-        <div className="orange_line"></div>
+          <div className="orange_line"></div>
+        </div>
       </div>
     </div>
   );
