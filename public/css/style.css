@@ -1099,7 +1099,20 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 .mobile textarea {
 	width: 100%;
 }
+.inner_con p{padding-top: 20px;}
 
-.inner_con p {
-	padding-top: 20px;
+
+.menu_bar ul li {
+  position: relative;
+}
+
+.menu_bar ul li ul {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 999;
+}
+
+.menu_bar ul li:hover > ul {
+  display: block;
 }

@@ -40,7 +40,7 @@ export default async function Home() {
   } catch (error) {
     console.error("Fetch error:", error);
   }
-  console.log(siteData);
+  console.log("SITE DATA:", siteData);
 
   const sections =
     siteData.pageItemdataWithSubsection ||
@@ -49,8 +49,9 @@ export default async function Home() {
   return (
     <>
       <BannerSlider sections={sections} />
-      <WelcomeSection />
-      <ServiceSection />
+      <WelcomeSection section={sections[1]} />
+      <ServiceSection  />
+
       <ActivitySection />
     </>
   );

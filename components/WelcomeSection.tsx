@@ -1,35 +1,34 @@
-const WelcomeSection = () => {
+interface Section {
+  title?: string;
+  shortDescription?: string;
+}
+
+interface WelcomeSectionProps {
+  section?: Section;
+}
+
+// Helper: remove HTML tags
+const stripHtml = (html?: string) =>
+  html ? html.replace(/<[^>]*>/g, "").trim() : "";
+
+const WelcomeSection = ({ section }: WelcomeSectionProps) => {
+  if (!section) return null;
+
+  const title = stripHtml(section.title);
+  const description = stripHtml(section.shortDescription);
+
   return (
     <div className="mid_con">
       <div className="container">
         <div className="site_title">
-          <h2>Welcome</h2>
+          <h2>{title}</h2>
         </div>
 
         <div className="wel_info">
           {/* <p></p> */}
-          <p>
-            Apart from the Academic Excellence, West End High School bears the
-            vision of inculcating in the students the right moral values so that
-            they grow up to be able citizens of tomorrow. We make every effort to
-            ensure that our students are global citizens with an Indian heart. As
-            the medium of instruction is English, considerable care and caution is
-            being taken to help the students develop the skills of learning English
-            correctly in real life situations. Perfection is what we seek to
-            import to our children who in their formative stage would feel
-            encouraged to learn with a passion. In this era of careerism and cut
-            throat competition in various professional spheres both communicative
-            and creative English have a wider acceptability in modern times.
-            Perfection is what we seek to import to our children who in their
-            formative stage would feel encouraged to learn with a passion. In this
-            era of careerism and cut throat competition in various professional
-            spheres both communicative and creative English have a wider
-            acceptability in modern times. Perfection is what we seek to import to
-            our children who in their formative stage would feel encouraged to
-            learn with a passion. In this era of careerism and cut throat
-            competition in various professional spheres both communicative and
-            creative English have a wider acceptability in modern times.
-          </p>
+
+          <p>{description}</p>
+
           {/* <p></p> */}
 
           <div className="orange_line"></div>
