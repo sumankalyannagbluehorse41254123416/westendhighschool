@@ -42,7 +42,7 @@ export default async function BannerSection() {
       { host, ...headersObj },
       "ec136779-28a8-43b8-b180-7c36440fe58f" // ✅ Banner ID
     );
-    console.log("SITE DATA:", siteData);
+    // console.log("SITE DATA:", siteData);
   } catch (error) {
     console.error("Banner fetch failed");
     return null;
