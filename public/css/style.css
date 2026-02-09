@@ -96,7 +96,8 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 }
 
 .service_section03 {
-	padding: 40px 0 20px;
+	padding-top: 40px;
+	padding-bottom: 20px;
 }
 
 .service_box {
@@ -709,6 +710,7 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 	line-height: 24px;
 	font-style: italic;
 	color: #666;
+	padding-top: 20px;
 	text-align: center;
 }
 
@@ -1109,7 +1111,7 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 .menu_bar ul li ul {
   position: absolute;
   top: 100%;
-  left: 0;
+  left: -52px;
   z-index: 999;
 }
 
