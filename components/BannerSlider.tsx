@@ -73,8 +73,8 @@ export default function BannerSlider({ sections }: BannerSliderProps) {
 
             {/* Caption */}
             <div className="banner_caption">
-              <h2>LEARN TO LIVE</h2>
-              <h3>LEARN TO GIVE</h3>
+              <h2>{banner.title}</h2>
+              <h3>{banner.shortDescription}</h3>
             </div>
           </div>
         </SwiperSlide>
