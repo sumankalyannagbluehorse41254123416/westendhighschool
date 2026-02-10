@@ -33,6 +33,7 @@ export default function BannerSlider({ sections }: BannerSliderProps) {
 
   const imageUrl =
     banner.bannerImage || banner.image || "/images/default-banner.jpg";
+    
 
   const title1 = banner.title ? banner.title.replace(/<[^>]*>/g, "") : "";
 
