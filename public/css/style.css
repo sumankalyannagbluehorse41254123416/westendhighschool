@@ -227,6 +227,9 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 	padding-top: 5px;
 	vertical-align: middle;
 	background-color: transparent;
+	position: absolute;
+	right: 0;
+	top: 0;
 }
 
 .toggle-menu-button .line:nth-child(1) {
@@ -239,14 +242,52 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 	display: block;
 	width: 30px;
 	height: 2px;
-	margin-bottom: 7px;
+	/* margin-bottom: 7px; */
 	margin-left: auto;
 	margin-right: auto;
 	clear: both;
-	background-color: #830bd3;
+	background-color: #fff;
 	transition: all 400ms ease-in-out;
 }
+.mobile-parent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  /* padding: 14px 18px;           ← */
+}
 
+.parent-text {
+  flex: 1;
+  color: inherit;
+  text-decoration: none;
+}
+
+.arrow {
+  font-size: 0.95em;
+  margin-left: 12px;
+  transition: transform 0.25s;
+}
+
+.mobile-submenu {
+  max-height: 0;
+  overflow: hidden;
+  background: #f9f9f9;           /* optional */
+}
+
+.mobile-submenu.open {
+  max-height: 700px;             /* ← enough for longest submenu */
+  padding: 8px;
+  transition: max-height 0.4s ease-in;
+  left: 0;
+  width: 100%;
+  margin-top: 0;
+}
+
+/* Optional: nicer arrow rotation */
+.mobile-parent:has(+ .mobile-submenu.open) .arrow {
+  transform: rotate(180deg);
+}
 .mobile_nav {
 	display: none;
 	position: relative;
@@ -254,11 +295,140 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 
 @media (max-width: 992px) {
 	.mobile_nav {
-		display: inline-block;
+		display: block;
 	}
 }
 
+/* Menu.css */
 
+/* ───────────────────────────────
+   DESKTOP MENU (≥ 993px)
+─────────────────────────────── */
+.sb_menu {
+  display: block;
+}
+
+@media (min-width: 993px) {
+  .mobile_nav,
+  .mobile-toggle-input,
+  .toggle-menu-button,
+  .mobile_menu {
+    display: none !important;
+  }
+}
+
+/* ───────────────────────────────
+   MOBILE / TABLET (≤ 992px)
+─────────────────────────────── */
+@media (max-width: 992px) {
+  .sb_menu {
+    display: none !important;
+  }
+
+  .mobile_nav {
+    display: block;
+    position: relative;
+  }
+
+  /* ─── Checkbox hack ─── */
+  .mobile-toggle-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  /* ─── Hamburger ─── */
+  .toggle-menu-button {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 32px;
+    height: 24px;
+    position: relative;
+    z-index: 1002;
+    padding: 4px 0;
+
+  /* background: yellow !important;      */
+
+  z-index: 9999 !important;
+ 
+  }
+
+  .line {
+    width: 100%;
+    height: 3.5px;
+    background: #333; /* ← change to match your design */
+    border-radius: 2px;
+    transition: all 0.35s ease;
+  }
+
+  /* ─── Mobile menu (right slide-in) ─── */
+  .mobile_menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;           /* ← adjust width as needed */
+    height: 100vh;
+    background: #ffffff;
+    box-shadow: -6px 0 20px rgba(0, 0, 0, 0.18);
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1001;
+    padding: 80px 24px 40px;
+    overflow-y: auto;
+    list-style: none;
+    margin: 0;
+  }
+
+  #mobile-menu-toggle:checked ~ .mobile_menu {
+    transform: translateX(0);
+  }
+
+  /* ─── Hamburger → × animation ─── */
+  #mobile-menu-toggle:checked + .toggle-menu-button .line:nth-child(1) {
+    transform: rotate(45deg) translate(0px, 8px);
+	width: 25px !important;
+  }
+
+  #mobile-menu-toggle:checked + .toggle-menu-button .line:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  #mobile-menu-toggle:checked + .toggle-menu-button .line:nth-child(3) {
+    transform: rotate(-45deg) translate(4px, -7px);
+	width: 25px !important;
+  }
+
+  /* Optional: prevent body scroll when menu is open */
+  #mobile-menu-toggle:checked ~ body {
+    overflow: hidden;
+  }
+}
+
+/* Optional — better submenu spacing in mobile */
+.mobile_menu ul {
+  padding-left: 16px;
+  margin: 12px 0;
+}
+
+.mobile_menu a {
+  display: block;
+  padding: 10px 0;
+  color: #333;
+  text-decoration: none;
+}
+
+.mobile_menu a:hover {
+  color: #0066cc; /* ← your hover color */
+}
+
+/* Just in case — clearfix helper */
+.clear {
+  clear: both;
+}
 
 .social {
 	width: 30%;
@@ -457,6 +627,17 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 	text-align: center;
 	/* Old browsers */
 	/* W3C */
+}
+
+@media (max-width:992px) {
+	.sb_menu ul {
+		display: none;
+	}
+
+	.mobile_nav .mobile_menu {
+		display: flex;
+		flex-direction: column;
+	}
 }
 
 .content {
@@ -1101,20 +1282,23 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 .mobile textarea {
 	width: 100%;
 }
-.inner_con p{padding-top: 20px;}
+
+.inner_con p {
+	padding-top: 20px;
+}
 
 
 .menu_bar ul li {
-  position: relative;
+	position: relative;
 }
 
 .menu_bar ul li ul {
-  position: absolute;
-  top: 100%;
-  left: -52px;
-  z-index: 999;
+	position: absolute;
+	top: 100%;
+	left: -52px;
+	z-index: 999;
 }
 
-.menu_bar ul li:hover > ul {
-  display: block;
+.menu_bar ul li:hover>ul {
+	display: block;
 }
