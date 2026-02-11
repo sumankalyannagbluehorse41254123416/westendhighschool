@@ -909,7 +909,7 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 	width: 100%;
 	padding: 1%;
 	border: 1px solid #61a900;
-	margin-left: 2%;
+	/* margin-left: 2%; */
 	border-radius: 0px 5px 5px 5px;
 	min-height: 490px;
 	line-height: 160%;
@@ -987,7 +987,7 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 	font-size: 24px;
 	left: 13%;
 	margin: 0 auto;
-	position: absolute;
+	/* position: absolute; */
 	top: 34%;
 }
 
@@ -1285,8 +1285,11 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 
 .inner_con p {
 	padding-top: 20px;
+	
 }
-
+.general_info_con.inner_con p{
+color: #fff;
+}
 
 .menu_bar ul li {
 	position: relative;
