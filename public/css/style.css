@@ -571,36 +571,42 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 		gap: 5px;
 	}
 }
+
 @media (max-width:1199px) {
 	.team_member {
 		grid-template-columns: repeat(5, 1fr);
 		gap: 5px;
 	}
 }
+
 @media (max-width:991px) {
 	.team_member {
 		grid-template-columns: repeat(4, 1fr);
 		gap: 5px;
 	}
 }
+
 @media (max-width:820px) {
 	.team_member {
 		grid-template-columns: repeat(3, 1fr);
 		gap: 5px;
 	}
 }
+
 @media (max-width:575px) {
 	.team_member {
 		grid-template-columns: repeat(2, 1fr);
 		gap: 5px;
 	}
 }
+
 @media (max-width:400px) {
 	.team_member {
 		grid-template-columns: repeat(1, 1fr);
 		gap: 5px;
 	}
 }
+
 .inner_con .team p {
 	padding-top: 0;
 }
@@ -792,6 +798,31 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 .innermiddle {
 	width: 100%;
 	float: left;
+}
+
+.contact_header {
+	padding: 20px;
+}
+
+.contact_header .inner_con {
+	display: flex;
+	justify-content: space-between;
+	gap: 20px;
+}
+
+@media (max-width:991px) {
+	.contact_header .inner_con {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.con_form {
+		width: 100% !important;
+	}
+}
+
+.contact_header .wlcm_txt {
+	margin-bottom: 10px;
 }
 
 .logo {
@@ -1120,8 +1151,19 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 }
 
 .lib_tb {
-	width: 411px;
-	float: left;
+	/* width: 411px;
+	float: left; */
+}
+
+.contact_header .input_area input {
+	padding: 5px;
+	border-radius: 5px;
+	margin-bottom: 5px;
+}
+.contact_header textarea {
+	padding: 5px;
+	border-radius: 5px;
+	margin-bottom: 5px;
 }
 
 .con_add {
@@ -1129,9 +1171,9 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 }
 
 .con_form {
-	float: left;
+	/* float: left; */
 	width: 38%;
-	margin-left: 8%;
+	/* margin-left: 8%; */
 	margin-bottom: 40px;
 }
 
@@ -1147,7 +1189,7 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 .enquiry {
 	width: 100%;
 	position: relative;
-	left: 50%;
+	/* left: 50%; */
 	float: left;
 }
 
@@ -1162,12 +1204,18 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 .addmission {
 	margin-top: 8%;
 }
-
+@media (max-width:991px){
+	.addmission {
+		margin-top: 3%;
+	}
+}
 .addmi {
 	position: absolute;
 	top: 0%;
 	font-family: 'Monotype Corsiva';
-	left: 25%;
+	left: 0;
+	right: 24px;
+	text-align: center;
 	font-size: 24px;
 }
 
