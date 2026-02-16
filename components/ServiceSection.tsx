@@ -81,7 +81,7 @@ export default function ServiceSection() {
             <ul>
               <li>
                 <Link
-                  href="/news_today/admission-is-going-on-2018-2019/"
+                  href="/news_today/admission-is-going-on/"
                   style={{ color: "#333333" }}
                 >
                   Admission is going on 2020 -2021
@@ -99,7 +99,7 @@ export default function ServiceSection() {
 
               <li>
                 <Link
-                  href="/news_today/admission-is-going-on-for-nursery-to-class-11/"
+                  href="/news_today/admission-is-going-on-for-nursery/"
                   style={{ color: "#333333" }}
                 >
                   Admission is going on for Nursery to class-11
@@ -108,7 +108,7 @@ export default function ServiceSection() {
 
               <li>
                 <Link
-                  href="/news_today/time-table-for-annual-examination-2015-16/"
+                  href="/news_today/time-table-for-annual-examination/"
                   style={{ color: "#333333" }}
                 >
                   Time Table for Annual Examination 2015-16
