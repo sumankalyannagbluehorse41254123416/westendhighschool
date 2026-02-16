@@ -7,10 +7,12 @@ export default function InfrastructureGallery() {
     border: "1px solid #ccc",
     margin: ".5%",
     boxShadow: "3px 3px 9px 0px #ccc",
+    width:"100%",
+    objectFit: "cover" as const,
   };
 
   return (
-    <div className="inner_con" style={{ marginBottom: "1%" }}>
+    <div className="inner_con gallery_box" style={{ marginBottom: "1%", display:"grid" }}>
       <div className="flickr_badge_image">
         <a href="/images/305-DSCN0706.jpg" target="_blank">
           <Image
