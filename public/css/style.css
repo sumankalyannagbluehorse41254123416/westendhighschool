@@ -41,6 +41,17 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 	display: none;
 }
 
+.header_section {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	background: #fff;
+	z-index: 1000;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.main_content{
+	padding-top: 105px;
+}
 .main {
 	margin: 0 auto;
 	box-shadow: 2px 2px 15px 1px #ccc;
@@ -249,45 +260,49 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 	background-color: #fff;
 	transition: all 400ms ease-in-out;
 }
+
 .mobile-parent {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  /* padding: 14px 18px;           ← */
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+	/* padding: 14px 18px;           ← */
 }
 
 .parent-text {
-  flex: 1;
-  color: inherit;
-  text-decoration: none;
+	flex: 1;
+	color: inherit;
+	text-decoration: none;
 }
 
 .arrow {
-  font-size: 0.95em;
-  margin-left: 12px;
-  transition: transform 0.25s;
+	font-size: 0.95em;
+	margin-left: 12px;
+	transition: transform 0.25s;
 }
 
 .mobile-submenu {
-  max-height: 0;
-  overflow: hidden;
-  background: #f9f9f9;           /* optional */
+	max-height: 0;
+	overflow: hidden;
+	background: #f9f9f9;
+	/* optional */
 }
 
 .mobile-submenu.open {
-  max-height: 700px;             /* ← enough for longest submenu */
-  padding: 8px;
-  transition: max-height 0.4s ease-in;
-  left: 0;
-  width: 100%;
-  margin-top: 0;
+	max-height: 700px;
+	/* ← enough for longest submenu */
+	padding: 8px;
+	transition: max-height 0.4s ease-in;
+	left: 0;
+	width: 100%;
+	margin-top: 0;
 }
 
 /* Optional: nicer arrow rotation */
 .mobile-parent:has(+ .mobile-submenu.open) .arrow {
-  transform: rotate(180deg);
+	transform: rotate(180deg);
 }
+
 .mobile_nav {
 	display: none;
 	position: relative;
@@ -305,129 +320,133 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
    DESKTOP MENU (≥ 993px)
 ─────────────────────────────── */
 .sb_menu {
-  display: block;
+	display: block;
 }
 
 @media (min-width: 993px) {
-  .mobile_nav,
-  .mobile-toggle-input,
-  .toggle-menu-button,
-  .mobile_menu {
-    display: none !important;
-  }
+
+	.mobile_nav,
+	.mobile-toggle-input,
+	.toggle-menu-button,
+	.mobile_menu {
+		display: none !important;
+	}
 }
 
 /* ───────────────────────────────
    MOBILE / TABLET (≤ 992px)
 ─────────────────────────────── */
 @media (max-width: 992px) {
-  .sb_menu {
-    display: none !important;
-  }
+	.sb_menu {
+		display: none !important;
+	}
 
-  .mobile_nav {
-    display: block;
-    position: relative;
-  }
+	.mobile_nav {
+		display: block;
+		position: relative;
+	}
 
-  /* ─── Checkbox hack ─── */
-  .mobile-toggle-input {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
+	/* ─── Checkbox hack ─── */
+	.mobile-toggle-input {
+		position: absolute;
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
 
-  /* ─── Hamburger ─── */
-  .toggle-menu-button {
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 32px;
-    height: 24px;
-    position: relative;
-    z-index: 1002;
-    padding: 4px 0;
+	/* ─── Hamburger ─── */
+	.toggle-menu-button {
+		cursor: pointer;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		width: 32px;
+		height: 24px;
+		position: relative;
+		z-index: 1002;
+		padding: 4px 0;
 
-  /* background: yellow !important;      */
+		/* background: yellow !important;      */
 
-  z-index: 9999 !important;
- 
-  }
+		z-index: 9999 !important;
 
-  .line {
-    width: 100%;
-    height: 3.5px;
-    background: #333; /* ← change to match your design */
-    border-radius: 2px;
-    transition: all 0.35s ease;
-  }
+	}
 
-  /* ─── Mobile menu (right slide-in) ─── */
-  .mobile_menu {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 280px;           /* ← adjust width as needed */
-    height: 100vh;
-    background: #ffffff;
-    box-shadow: -6px 0 20px rgba(0, 0, 0, 0.18);
-    transform: translateX(100%);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 1001;
-    padding: 80px 24px 40px;
-    overflow-y: auto;
-    list-style: none;
-    margin: 0;
-  }
+	.line {
+		width: 100%;
+		height: 3.5px;
+		background: #333;
+		/* ← change to match your design */
+		border-radius: 2px;
+		transition: all 0.35s ease;
+	}
 
-  #mobile-menu-toggle:checked ~ .mobile_menu {
-    transform: translateX(0);
-  }
+	/* ─── Mobile menu (right slide-in) ─── */
+	.mobile_menu {
+		position: fixed;
+		top: 0;
+		right: 0;
+		width: 280px;
+		/* ← adjust width as needed */
+		height: 100vh;
+		background: #ffffff;
+		box-shadow: -6px 0 20px rgba(0, 0, 0, 0.18);
+		transform: translateX(100%);
+		transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+		z-index: 1001;
+		padding: 80px 24px 40px;
+		overflow-y: auto;
+		list-style: none;
+		margin: 0;
+	}
 
-  /* ─── Hamburger → × animation ─── */
-  #mobile-menu-toggle:checked + .toggle-menu-button .line:nth-child(1) {
-    transform: rotate(45deg) translate(0px, 8px);
-	width: 25px !important;
-  }
+	#mobile-menu-toggle:checked~.mobile_menu {
+		transform: translateX(0);
+	}
 
-  #mobile-menu-toggle:checked + .toggle-menu-button .line:nth-child(2) {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
+	/* ─── Hamburger → × animation ─── */
+	#mobile-menu-toggle:checked+.toggle-menu-button .line:nth-child(1) {
+		transform: rotate(45deg) translate(0px, 8px);
+		width: 25px !important;
+	}
 
-  #mobile-menu-toggle:checked + .toggle-menu-button .line:nth-child(3) {
-    transform: rotate(-45deg) translate(4px, -7px);
-	width: 25px !important;
-  }
+	#mobile-menu-toggle:checked+.toggle-menu-button .line:nth-child(2) {
+		opacity: 0;
+		transform: translateX(-20px);
+	}
 
-  /* Optional: prevent body scroll when menu is open */
-  #mobile-menu-toggle:checked ~ body {
-    overflow: hidden;
-  }
+	#mobile-menu-toggle:checked+.toggle-menu-button .line:nth-child(3) {
+		transform: rotate(-45deg) translate(4px, -7px);
+		width: 25px !important;
+	}
+
+	/* Optional: prevent body scroll when menu is open */
+	#mobile-menu-toggle:checked~body {
+		overflow: hidden;
+	}
 }
 
 /* Optional — better submenu spacing in mobile */
 .mobile_menu ul {
-  padding-left: 16px;
-  margin: 12px 0;
+	padding-left: 16px;
+	margin: 12px 0;
 }
 
 .mobile_menu a {
-  display: block;
-  padding: 10px 0;
-  color: #333;
-  text-decoration: none;
+	display: block;
+	padding: 10px 0;
+	color: #333;
+	text-decoration: none;
 }
 
 .mobile_menu a:hover {
-  color: #0066cc; /* ← your hover color */
+	color: #0066cc;
+	/* ← your hover color */
 }
 
 /* Just in case — clearfix helper */
 .clear {
-  clear: both;
+	clear: both;
 }
 
 .social {
@@ -1285,10 +1304,11 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 
 .inner_con p {
 	padding-top: 20px;
-	
+
 }
-.general_info_con.inner_con p{
-color: #fff;
+
+.general_info_con.inner_con p {
+	color: #fff;
 }
 
 .menu_bar ul li {

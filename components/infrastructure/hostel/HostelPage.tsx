@@ -20,6 +20,7 @@ export default function HostelContent() {
           <tr>
             <td></td>
           </tr>
+          
 
           <tr>
             <td className="paratext_header" align="left" valign="top">
