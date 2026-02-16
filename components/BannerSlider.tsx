@@ -102,10 +102,25 @@ interface BannerSliderProps {
   }[];
 }
 
+/* ---------------- Component ---------------- */
+
 export default function BannerSlider({ sections }: BannerSliderProps) {
   console.log("Sections:", sections?.length);
 
   if (!sections || sections.length === 0) return null;
+
+  // ✅ Using array index 0
+  const banner = sections[0];
+
+  const imageUrl =
+    banner.bannerImage || banner.image || "/images/default-banner.jpg";
+    
+
+  const title1 = banner.title ? banner.title.replace(/<[^>]*>/g, "") : "";
+
+  const title2 = banner.shortDescription
+    ? banner.shortDescription.replace(/<[^>]*>/g, "")
+    : "";
 
   return (
     <section id="banner" className="relative w-full h-[600px]">
@@ -123,29 +138,27 @@ export default function BannerSlider({ sections }: BannerSliderProps) {
         pagination={false}
         className="h-full banner_swiper"
       >
-        {sections.map((banner, index) => {
-          const imageUrl =
-            banner.bannerImage || banner.image || "/images/default-banner.jpg";
+        <SwiperSlide className="h-full">
+          <div className="relative w-full h-full">
+            {/* Image */}
+            <Image
+              src={imageUrl}
+              alt={title1 || "Banner"}
+              fill
+              priority
+              className="object-cover slide_img"
+            />
 
-          return (
-            <SwiperSlide key={index} className="h-full">
-              <div className="relative w-full h-full">
-                <Image
-                  src={imageUrl}
-                  alt={banner.title || `Banner ${index + 1}`}
-                  fill
-                  priority={index === 0}
-                  className="object-cover slide_img"
-                />
-                <div className="absolute inset-0 bg-black/40 z-10"></div>
-                <div className="banner_caption">
-                  <h2>{banner.title}</h2>
-                  <h3>{banner.shortDescription}</h3>
-                </div>
-              </div>
-            </SwiperSlide>
-          );
-        })}
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-black/40 z-10"></div>
+
+            {/* Caption */}
+            <div className="banner_caption">
+              <h2>{banner.title}</h2>
+              <h3>{banner.shortDescription}</h3>
+            </div>
+          </div>
+        </SwiperSlide>
       </Swiper>
     </section>
   );

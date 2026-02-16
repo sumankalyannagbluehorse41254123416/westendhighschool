@@ -26,6 +26,7 @@ export default function GalleryBanner() {
                 >
                   <div>
                     <li
+                    
                       className="clone"
                       aria-hidden="true"
                       style={{

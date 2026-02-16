@@ -32,5 +32,6 @@ export default function Team() {
 
       <div className="clear"></div>
     </div>
+    
   );
 }
