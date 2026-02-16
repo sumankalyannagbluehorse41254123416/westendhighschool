@@ -47,6 +47,7 @@ export default async function BannerSection() {
     console.error("Banner fetch failed");
     return null;
   }
+  
 
   // 3️⃣ Normalize response
   const sections = siteData.singlebannerData

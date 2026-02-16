@@ -23,23 +23,27 @@ interface BannerSliderProps {
   sections: Section[];
 }
 
+/* ---------------- Helper Function ---------------- */
+
+// Remove HTML tags + trim spaces
+const stripHtml = (html?: string) => {
+  if (!html) return "";
+  return html.replace(/<[^>]*>/g, "").trim();
+};
+
 /* ---------------- Component ---------------- */
 
 export default function BannerSlider({ sections }: BannerSliderProps) {
   if (!sections || sections.length === 0) return null;
 
-  // ✅ Using array index 0
   const banner = sections[0];
 
   const imageUrl =
     banner.bannerImage || banner.image || "/images/default-banner.jpg";
-    
 
-  const title1 = banner.title ? banner.title.replace(/<[^>]*>/g, "") : "";
-
-  const title2 = banner.shortDescription
-    ? banner.shortDescription.replace(/<[^>]*>/g, "")
-    : "";
+  // ✅ Cleaned values
+  const cleanTitle = stripHtml(banner.title);
+  const cleanDescription = stripHtml(banner.shortDescription);
 
   return (
     <section id="banner" className="relative w-full h-[600px]">
@@ -63,7 +67,7 @@ export default function BannerSlider({ sections }: BannerSliderProps) {
             {/* Image */}
             <Image
               src={imageUrl}
-              alt={title1 || "Banner"}
+              alt={cleanTitle || "Banner"}
               fill
               priority
               className="object-cover slide_img"
@@ -73,9 +77,9 @@ export default function BannerSlider({ sections }: BannerSliderProps) {
             <div className="absolute inset-0 bg-black/40 z-10"></div>
 
             {/* Caption */}
-            <div className="banner_caption">
-              <h2>{banner.title}</h2>
-              <h3>{banner.shortDescription}</h3>
+            <div className="banner_caption relative z-20 text-white text-center">
+              {cleanTitle && <h2>{cleanTitle}</h2>}
+              {cleanDescription && <h3>{cleanDescription}</h3>}
             </div>
           </div>
         </SwiperSlide>

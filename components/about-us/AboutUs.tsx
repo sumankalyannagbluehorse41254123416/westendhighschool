@@ -16,6 +16,7 @@ export default function AboutUs() {
           tribals got off to a start with the avowed aim of working in the
           interior-most villages of the bordering areas of West Bengal, Bihar and
           Orissa.
+          
           <br />
           <br />
           The school was founded in April 2000 by Women in Social Action(WSA) a
