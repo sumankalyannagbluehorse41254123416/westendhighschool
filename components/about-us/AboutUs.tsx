@@ -2,14 +2,14 @@
 
 export default function AboutUs() {
   return (
-    <div className="innermiddle">
+    <div className="innermiddle about-text">
       <div className="clear"></div>
 
       <div className="header_img">
         <p className="wlcm_txt">About Us</p>
       </div>
 
-      <div className="inner_con">
+      <div className="inner_con ">
         <p style={{ textAlign: "justify" }}>
           The West End High School a wing of Women in Social Action – an NGO
           committed to the uplift of the people especially the under privileged
