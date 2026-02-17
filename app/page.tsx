@@ -52,8 +52,7 @@ export default async function Home() {
       <WelcomeSection section={sections[1]} />
       <ServiceSection section={sections[2]} newsSection={sections[3]} />
 
- <ActivitySection section={sections[4]} />
-
+      <ActivitySection section={sections[4]} />
     </>
   );
 }
