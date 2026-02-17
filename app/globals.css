@@ -107,14 +107,20 @@ a {
 /* =========================
    Banner Base
 ========================= */
-
+.side_padding{
+  padding: 10px;
+}
 #banner {
   position: relative;
   width: 100%;
   height: 600px;
   overflow: hidden;
 }
-
+@media (max-width:575px){
+  #banner{
+    height: 350px;
+  }
+}
 #banner .swiper {
   width: 100%;
   height: 100%;
