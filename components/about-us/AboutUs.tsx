@@ -1,44 +1,54 @@
+import { fetchPageData } from "@/services/fetchBlog.service";
+import { headers } from "next/headers";
 
+/* ---------------- Types ---------------- */
 
-export default function AboutUs() {
+interface BlogPost {
+  title?: string;
+  excerpt?: string;
+}
+
+export default async function AboutUs() {
+  const rqHeaders = headers();
+  const host = (await rqHeaders).get("host") || "localhost:3000";
+  const headersObj = Object.fromEntries((await rqHeaders).entries());
+
+  let siteData: any = {};
+
+  try {
+    siteData = await fetchPageData(
+      { host, ...headersObj },
+      "1c7fdabc-5f10-464f-aed4-dfd66c01f37b"
+    );
+  } catch (error) {
+    console.error("Blog fetch failed");
+    return null;
+  }
+
+  const posts: BlogPost[] = siteData?.userSinglePostdata || [];
+
+  if (!posts.length) {
+    console.warn("No blog data found");
+    return null;
+  }
+
+  const post = posts[0]; // ✅ index 0
+
   return (
     <div className="innermiddle">
       <div className="clear"></div>
 
       <div className="header_img">
-        <p className="wlcm_txt">About Us</p>
+        {/* ✅ Dynamic Title */}
+        <p className="wlcm_txt">{post.title}</p>
       </div>
 
       <div className="inner_con">
-        <p style={{ textAlign: "justify" }}>
-          The West End High School a wing of Women in Social Action – an NGO
-          committed to the uplift of the people especially the under privileged
-          tribals got off to a start with the avowed aim of working in the
-          interior-most villages of the bordering areas of West Bengal, Bihar and
-          Orissa.
-          
-          <br />
-          <br />
-          The school was founded in April 2000 by Women in Social Action(WSA) a
-          registered non governmental organization to the eradication of
-          illiteracy and carrying out committed pioneering work for welfare in
-          and around Jhargram.
-          <br />
-          <br />
-          The school is affiliated to the council for the Indian School
-          Certificate Examinations, New Delhi. Apart from Jhargram, students are
-          coming from different corners to study over here, attracted and allured
-          not only by its sylvan surroundings but also by its style of teaching
-          and functioning. In fact West End High School offers all that is
-          expected of a modern english medium school. The main motto is – We can
-          do it – it’s something of a stimulus that spurs us on to achieve what
-          is best and grandest.
-          <br />
-          <br />
-          We welcome all our prospective students and their guardians to be an
-          integral part of our endeavour to produce high achievers with deep
-          social commitment.
-        </p>
+        {/* ✅ Dynamic Excerpt */}
+        <div
+          style={{ textAlign: "justify" }}
+          dangerouslySetInnerHTML={{ __html: post.excerpt || "" }}
+        />
       </div>
     </div>
   );
