@@ -50,9 +50,10 @@ export default async function Home() {
     <>
       <BannerSlider sections={sections} />
       <WelcomeSection section={sections[1]} />
-      <ServiceSection  />
+      <ServiceSection section={sections[2]} newsSection={sections[3]} />
 
-      <ActivitySection />
+ <ActivitySection section={sections[4]} />
+
     </>
   );
 }
