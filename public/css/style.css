@@ -1160,6 +1160,7 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 	border-radius: 5px;
 	margin-bottom: 5px;
 }
+
 .contact_header textarea {
 	padding: 5px;
 	border-radius: 5px;
@@ -1204,11 +1205,25 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 .addmission {
 	margin-top: 8%;
 }
-@media (max-width:991px){
+
+@media (max-width:991px) {
 	.addmission {
 		margin-top: 3%;
 	}
 }
+
+.about-text {
+	padding: 15px;
+}
+
+.about-text .header_img {
+	padding-bottom: 10px;
+}
+
+.about-text p {
+	color: #fff;
+}
+
 .addmi {
 	position: absolute;
 	top: 0%;

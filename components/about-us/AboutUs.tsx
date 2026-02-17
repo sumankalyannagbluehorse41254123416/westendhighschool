@@ -35,7 +35,7 @@ export default async function AboutUs() {
   const post = posts[0]; // ✅ index 0
 
   return (
-    <div className="innermiddle">
+    <div className="innermiddle about-text">
       <div className="clear"></div>
 
       <div className="header_img">
