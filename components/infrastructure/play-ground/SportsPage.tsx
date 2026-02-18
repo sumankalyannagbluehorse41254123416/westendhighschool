@@ -16,16 +16,17 @@ export default function SportsPage() {
           table-tennis , carrom etc. The annual spotrs meet, foot ball and
           cricket tournaments are conducted class wise/hose wise.
         </span>
-
+      </p>
+      <div>
         <Image
           className="alignnone size-medium wp-image-185"
-          style={{ verticalAlign: "baseline" }}
+          style={{ verticalAlign: "baseline", display:"flex", margin:"10px auto", width:"auto"}}
           src="/images/28-10-300x225.jpg"
           alt=""
           width="500"
           height="325"
         />
-      </p>
+      </div>
     </div>
   );
 }
