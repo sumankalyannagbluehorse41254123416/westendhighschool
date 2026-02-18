@@ -110,6 +110,14 @@ a {
 .side_padding{
   padding: 10px;
 }
+.side_padding p{
+  color: #fff;
+}
+@media (max-width:575px){
+  .side_padding img{
+    width: 100%;
+  }
+}
 #banner {
   position: relative;
   width: 100%;
