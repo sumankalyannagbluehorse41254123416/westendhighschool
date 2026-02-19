@@ -1,41 +1,51 @@
-export default function AboutSection() {
+import { fetchPageData } from "@/services/fetchBlog.service";
+import { headers } from "next/headers";
+
+interface BlogPost {
+  title?: string;
+  excerpt?: string;
+}
+
+export default async function AboutSection() {
+  const rqHeaders = await headers();
+
+  const host = rqHeaders.get("host") || "localhost:3000";
+  const headersObj = Object.fromEntries(rqHeaders.entries());
+
+  let siteData: any = {};
+
+  try {
+    siteData = await fetchPageData(
+      { host, ...headersObj },
+      "1f5ea9b1-b962-444c-aba3-0edf65e3d692"
+    );
+  } catch (error) {
+    console.error("Blog fetch failed");
+    return null;
+  }
+
+  const posts: BlogPost[] = siteData?.userSinglePostdata || [];
+
+  if (!posts.length) {
+    console.warn("No blog data found");
+    return null;
+  }
+
+  // ✅ Use index 4 (with safe fallback)
+  const post = posts[4] || posts[0];
+
   return (
     <div className="inner_con">
-      <p></p>
-
-      <p style={{ textAlign: "justify" }}>
-        <span
-          style={{
-            fontSize: "large",
-            fontFamily: "book antiqua, palatino",
-          }}
-        >
-          Our Institution is an integral part of the West End High School and our
-          association with education dates back to 1949, West End High School
-          Society has been a non profit, non proprietary organization striving
-          for excellence in education. The aim of West End High School Society
-          has always been magnanimous and this has been proved by the fact that
-          schools have been set up in the remotest corners of the country,
-          enabling the schools to impart the values to all willing learners
-          nationwide
-        </span>
-      </p>
-
-      <p style={{ textAlign: "justify" }}>
-        <span
-          style={{
-            fontSize: "large",
-            fontFamily: "book antiqua, palatino",
-          }}
-        >
-          The school has almost become a miniature India, for students come here
-          for various parts of the country and even from abroad. Admission is
-          made on the basis of merit and is open to students irrespective of
-          caste, creed, religion and nationality.
-        </span>
-      </p>
-
-      <p></p>
+      <div
+        style={{
+          textAlign: "justify",
+          fontSize: "large",
+          fontFamily: "book antiqua, palatino",
+        }}
+        dangerouslySetInnerHTML={{
+          __html: post?.excerpt || "",
+        }}
+      />
     </div>
   );
 }

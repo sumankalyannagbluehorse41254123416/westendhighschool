@@ -1,36 +1,49 @@
-export default function InnerContent() {
+import { fetchPageData } from "@/services/fetchBlog.service";
+import { headers } from "next/headers";
+
+interface BlogPost {
+  title?: string;
+  excerpt?: string;
+}
+
+export default async function InnerContent() {
+  const rqHeaders = await headers();
+
+  const host = rqHeaders.get("host") || "localhost:3000";
+  const headersObj = Object.fromEntries(rqHeaders.entries());
+
+  let siteData: any = {};
+
+  try {
+    siteData = await fetchPageData(
+      { host, ...headersObj },
+      "5e921fa8-d698-4596-9310-d5617dff5944"
+    );
+  } catch (error) {
+    console.error("Blog fetch failed");
+    return null;
+  }
+
+  const posts: BlogPost[] = siteData?.userSinglePostdata || [];
+
+  if (!posts.length) {
+    console.warn("No blog data found");
+    return null;
+  }
+
+  // ⚠️ Based on your API response, only index 0 exists
+  const post = posts[0];
+
   return (
     <div className="inner_con">
-      <p></p>
-
-      <p style={{ textAlign: "justify" }}>
-        <span>
-          Apart from the academic excellence, West End High School bears the
-          vision of inculcating in the students the right moral values so that
-          they grow up to be able citizens of tomorrow. We make every effort to
-          ensure that our students are global citizens with an Indian heart.
-        </span>
-      </p>
-
-      <p
+      <div
         style={{
           textAlign: "justify",
-          fontSize: "large",
-          fontFamily: "book antiqua, palatino",
         }}
-      >
-        <span>
-          As the medium of instruction is English,cosiderable care and caution is
-          being taken to help the students develop the skills of learning English
-          correctly in real life situations.Perfection is what we seek to import
-          to our children who in their formative stage would feel encouraged to
-          learn with a passion. In this era of careerism and cut throat
-          competition in various professional spheres both communicative and
-          creative English have a wider acceptability in modern times.
-        </span>
-      </p>
-
-      <p></p>
+        dangerouslySetInnerHTML={{
+          __html: post?.excerpt || "",
+        }}
+      />
     </div>
   );
 }
