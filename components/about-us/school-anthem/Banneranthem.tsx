@@ -1,67 +1,3 @@
-// import Image from "next/image";
-
-// const Banneranthem = () => {
-//   return (
-//     <div className="banner_wrap">
-//       <ul className="banner_slide slick-initialized slick-slider">
-//         <div className="slick-list draggable" style={{ height: "732px" }}>
-//           <div
-//             className="slick-track"
-//             style={{
-//               opacity: 1,
-//               width: "690px",
-//               transform: "translate3d(0px, 0px, 0px)",
-//             }}
-//           >
-//             <div
-//               className="slick-slide slick-current slick-active"
-//               data-slick-index="0"
-//               aria-hidden="false"
-//               style={{ width: "690px" }}
-//             >
-//               <div>
-//                 <li
-//                   className="clone"
-//                   aria-hidden="true"
-//                   style={{
-//                     width: "100%",
-//                     float: "left",
-//                     display: "inline-block",
-//                   }}
-//                 >
-//                   {/* Image container (required for next/image) */}
-//                   <div
-//                     style={{
-//                       position: "relative",
-//                       width: "100%",
-//                       height: "732px",
-//                     }}
-//                   >
-//                     <Image
-//                       src="/images/DSCN1198.jpg"
-//                       alt=""
-//                       fill
-//                       draggable={false}
-//                       style={{ objectFit: "cover" }}
-//                       priority
-//                     />
-//                   </div>
-
-//                   <div className="banner_caption">
-//                     <h2>LEARN TO LIVE</h2>
-//                     <h3>LEARN TO GIVE</h3>
-//                   </div>
-//                 </li>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default Banneranthem;
 "use client";
 
 import Image from "next/image";
@@ -72,7 +8,29 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-const Banneranthem = () => {
+/* ---------------- Types ---------------- */
+
+interface Section {
+  title?: string;
+  shortDescription?: string;
+  image?: string;
+  subsections?: Section[];
+}
+
+interface Props {
+  section?: Section;
+}
+
+/* ---------------- Helper ---------------- */
+
+const stripHtml = (html?: string) =>
+  html ? html.replace(/<[^>]*>/g, "") : "";
+
+/* ---------------- Component ---------------- */
+
+const Banneranthem = ({ section }: Props) => {
+  const slides = section?.subsections || [];
+
   return (
     <div className="banner_wrap">
       <Swiper
@@ -83,74 +41,41 @@ const Banneranthem = () => {
         loop={true}
         className="banner_slide"
       >
-        {/* Slide 1 */}
-        <SwiperSlide>
-          <li
-            className="clone"
-            style={{
-              width: "100%",
-              float: "left",
-              display: "inline-block",
-              listStyle: "none",
-            }}
-          >
-            <div
+        {slides.map((sub, index) => (
+          <SwiperSlide key={index}>
+            <li
+              className="clone"
               style={{
-                position: "relative",
                 width: "100%",
-                height: "732px",
+                float: "left",
+                display: "inline-block",
+                listStyle: "none",
               }}
             >
-              <Image
-                src="/images/DSCN1198.jpg"
-                alt=""
-                fill
-                draggable={false}
-                style={{ objectFit: "cover" }}
-                priority
-              />
-            </div>
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  height: "732px",
+                }}
+              >
+                <Image
+                  src={sub.image || "/images/placeholder.jpg"}
+                  alt={stripHtml(section?.title) || "banner"}
+                  fill
+                  draggable={false}
+                  style={{ objectFit: "cover" }}
+                  priority={index === 0}
+                />
+              </div>
 
-            <div className="banner_caption">
-              <h2>LEARN TO LIVE</h2>
-              <h3>LEARN TO GIVE</h3>
-            </div>
-          </li>
-        </SwiperSlide>
-
-        {/* Slide 2 (New Slide Added) */}
-        <SwiperSlide>
-          <li
-            className="clone"
-            style={{
-              width: "100%",
-              float: "left",
-              display: "inline-block",
-              listStyle: "none",
-            }}
-          >
-            <div
-              style={{
-                position: "relative",
-                width: "100%",
-                height: "732px",
-              }}
-            >
-              <Image
-                src="/images/DSCN1198.jpg"
-                alt=""
-                fill
-                draggable={false}
-                style={{ objectFit: "cover" }}
-              />
-            </div>
-
-            <div className="banner_caption">
-              <h2>EMBRACE THE JOURNEY</h2>
-              <h3>SHARE THE LOVE</h3>
-            </div>
-          </li>
-        </SwiperSlide>
+              <div className="banner_caption">
+                <h2>{stripHtml(section?.title)}</h2>
+                <h3>{stripHtml(section?.shortDescription)}</h3>
+              </div>
+            </li>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );
