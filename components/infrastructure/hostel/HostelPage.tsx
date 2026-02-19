@@ -5,8 +5,10 @@ export default function HostelContent() {
   return (
     <div>
       <table border={0} cellSpacing={0} cellPadding={0}>
+        <div className="side_padding">
         <tbody>
           <tr>
+            
             <td className="para_textcont" align="left" valign="top">
               WestEnd High School aims to provide the best possible environment
               for students who needs to board away from home. Hostel facility
@@ -104,6 +106,7 @@ export default function HostelContent() {
             </td>
           </tr>
         </tbody>
+        </div>
       </table>
     </div>
   );
