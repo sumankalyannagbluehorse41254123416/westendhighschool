@@ -51,7 +51,7 @@ export default async function SchoolAnthem() {
 
   /* ---------------- Banner Section (Array Index 5) ---------------- */
 
-  const bannerSection: Section | undefined = sections[5];
+  const bannerSection: Section | undefined = sections[0];
 
   return (
     <>
