@@ -1,71 +1,52 @@
-const NationalAnthemSection = () => {
+import { fetchPageData } from "@/services/fetchBlog.service";
+import { headers } from "next/headers";
+
+interface BlogPost {
+  title?: string;
+  excerpt?: string;
+}
+
+export default async function NationalAnthemSection() {
+  // ✅ Correct way to use headers()
+  const rqHeaders = await headers();
+
+  const host = rqHeaders.get("host") || "localhost:3000";
+  const headersObj = Object.fromEntries(rqHeaders.entries());
+
+  let siteData: any = {};
+
+  try {
+    siteData = await fetchPageData(
+      { host, ...headersObj },
+      "1d4fb14d-b40c-4e88-a570-56567b1f8986"
+    );
+  } catch (error) {
+    console.error("Blog fetch failed");
+    return null;
+  }
+
+  const posts: BlogPost[] = siteData?.userSinglePostdata || [];
+
+  if (!posts.length) {
+    console.warn("No blog data found");
+    return null;
+  }
+
+  // ✅ Your array has only 1 item → index 0
+  const post = posts[0];
+
   return (
     <div className="inner_con">
-      <p></p>
-
-      <p style={{ textAlign: "center" }}>
-        <span style={{ fontFamily: "comic sans ms, sans-serif", fontSize: "large" }}>
-          Jana-Gana-Mana-Adhinayaka Jaya He,
-        </span>
-      </p>
-
-      <p style={{ textAlign: "center" }}>
-        <span style={{ fontFamily: "comic sans ms, sans-serif", fontSize: "large" }}>
-          Bharata-Bhagya-Vidhata
-        </span>
-      </p>
-
-      <p style={{ textAlign: "center" }}>
-        <span style={{ fontFamily: "comic sans ms, sans-serif", fontSize: "large" }}>
-          Punjab-Sindhu-Gujarata-Maratha Dravida-Utkala-Banga
-        </span>
-      </p>
-
-      <p style={{ textAlign: "center" }}>
-        <span style={{ fontFamily: "comic sans ms, sans-serif", fontSize: "large" }}>
-          Vindhya-Himachala-Yamuna-Ganga Uchchhala-JaladthaTaranga
-        </span>
-      </p>
-
-      <p style={{ textAlign: "center" }}>
-        <span style={{ fontFamily: "comic sans ms, sans-serif", fontSize: "large" }}>
-          Tava Subha Name Jage
-        </span>
-      </p>
-
-      <p style={{ textAlign: "center" }}>
-        <span style={{ fontFamily: "comic sans ms, sans-serif", fontSize: "large" }}>
-          Tava Subha Ashisa Mage
-        </span>
-      </p>
-
-      <p style={{ textAlign: "center" }}>
-        <span style={{ fontFamily: "comic sans ms, sans-serif", fontSize: "large" }}>
-          Gahe Tava Jaya Gatha.
-        </span>
-      </p>
-
-      <p style={{ textAlign: "center" }}>
-        <span style={{ fontFamily: "comic sans ms, sans-serif", fontSize: "large" }}>
-          Jana-Gana-Mangala Dayaka&nbsp;Jaya He
-        </span>
-      </p>
-
-      <p style={{ textAlign: "center" }}>
-        <span style={{ fontFamily: "comic sans ms, sans-serif", fontSize: "large" }}>
-          Bharata-Bhagya-Vidhata,
-        </span>
-      </p>
-
-      <p style={{ textAlign: "center" }}>
-        <span style={{ fontFamily: "comic sans ms, sans-serif", fontSize: "large" }}>
-          Jaya He, Jaya He, Jaya He, Jaya Jaya Jaya, Jaya He
-        </span>
-      </p>
-
-      <p></p>
+      <div
+        style={{
+          textAlign: "center",
+          fontFamily: "comic sans ms, sans-serif",
+          fontSize: "large",
+        }}
+        dangerouslySetInnerHTML={{
+          __html: post?.excerpt || "",
+        }}
+      />
     </div>
   );
-};
-
-export default NationalAnthemSection;
+}
