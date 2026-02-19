@@ -1,10 +1,56 @@
 import SocietyBanner from "@/components/about-us/about-society/SocietyBanner";
 import ContentSection from "@/components/about-us/about-society/ContentSection";
+import { fetchPageData } from "@/services/fetchData.service";
+import { headers } from "next/headers";
 
-export default function AboutSociety() {
-  return <>
-  <SocietyBanner />
-  <ContentSection />
-  </>
-  ;
+/* ---------------- Types ---------------- */
+
+interface Section {
+  title?: string;
+  shortDescription?: string;
+  description?: string;
+  image?: string;
+  bannerImage?: string;
+  subsections?: Section[];
+  [key: string]: unknown;
+}
+
+interface SiteData {
+  pageItemdataWithSubsection?: Section[];
+  data?: {
+    pageItemdataWithSubsection?: Section[];
+  };
+}
+export default async function AboutSociety() {
+  const rqHeaders = await headers();
+
+  const host = rqHeaders.get("host") || "localhost:3000";
+  const headersObj = Object.fromEntries(rqHeaders.entries());
+
+  let siteData: SiteData = {};
+
+  try {
+    siteData = await fetchPageData(
+      { host, ...headersObj },
+      "3653c9cc-72b4-434f-b3f1-823bbf55f6cf",
+    );
+  } catch (error) {
+    console.error("Fetch error:", error);
+  }
+
+  /* ---------------- Extract Sections ---------------- */
+
+  const sections =
+    siteData.pageItemdataWithSubsection ||
+    siteData.data?.pageItemdataWithSubsection ||
+    [];
+
+  const bannerSection: Section | undefined = sections[0];
+
+  return (
+    <>
+      <SocietyBanner section={bannerSection} />
+      <ContentSection />
+    </>
+  );
 }
