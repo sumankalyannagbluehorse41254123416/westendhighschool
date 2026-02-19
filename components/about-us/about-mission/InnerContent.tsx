@@ -17,7 +17,7 @@ export default async function InnerContent() {
   try {
     siteData = await fetchPageData(
       { host, ...headersObj },
-      "5e921fa8-d698-4596-9310-d5617dff5944"
+      "76e2f94f-55bb-4feb-8c1a-ea24319aa517"
     );
   } catch (error) {
     console.error("Blog fetch failed");
@@ -31,14 +31,16 @@ export default async function InnerContent() {
     return null;
   }
 
-  // ⚠️ Based on your API response, only index 0 exists
-  const post = posts[0];
+  // ✅ Use index 4 (with safe fallback)
+  const post = posts[4] || posts[0];
 
   return (
     <div className="inner_con">
       <div
         style={{
           textAlign: "justify",
+          fontSize: "large",
+          fontFamily: "book antiqua, palatino",
         }}
         dangerouslySetInnerHTML={{
           __html: post?.excerpt || "",
