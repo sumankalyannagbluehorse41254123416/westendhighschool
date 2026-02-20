@@ -1,141 +1,51 @@
-export default function ArtContent() {
+import { fetchPageData } from "@/services/fetchBlog.service";
+import { headers } from "next/headers";
+
+interface BlogPost {
+  title?: string;
+  excerpt?: string;
+}
+
+export default async function ArtContent() {
+  const rqHeaders = await headers();
+
+  const host = rqHeaders.get("host") || "localhost:3000";
+  const headersObj = Object.fromEntries(rqHeaders.entries());
+
+  let siteData: any = {};
+
+  try {
+    siteData = await fetchPageData(
+      { host, ...headersObj },
+      "b9427233-063a-4a84-9491-f507ccf3109b"
+    );
+  } catch (error) {
+    console.error("Blog fetch failed");
+    return null;
+  }
+
+  const posts: BlogPost[] = siteData?.userSinglePostdata || [];
+
+  if (!posts.length) {
+    console.warn("No blog data found");
+    return null;
+  }
+
+  // ✅ Use index 4 (with safe fallback)
+  const post = posts[0];
+
   return (
     <div className="inner_con">
-      <p>
-        <span
-          style={{
-            fontFamily: "andale mono, times",
-            fontSize: "large",
-          }}
-        >
-          West End High School has extensive facilities for students to practice
-          the performing arts and learn them .It has been seen that the muses
-          have always been a boon to the moral and spiritual development of a
-          child and it is this environment that West End high School aspires to
-          create.
-        </span>
-        <br /><br />
-        <span
-          style={{
-            fontFamily: "andale mono, times",
-            fontSize: "large",
-          }}
-        >
-          Among the facilities available are :
-        </span>
-      </p>
-
-      <ul>
-        <li>
-          <span
-            style={{
-              fontFamily: "andale mono, times",
-              fontSize: "large",
-            }}
-          >
-            &nbsp; Western Dance
-          </span>
-        </li>
-      </ul>
-
-      <span
+      <div
         style={{
-          fontFamily: "andale mono, times",
+          textAlign: "justify",
           fontSize: "large",
+          fontFamily: "book antiqua, palatino",
         }}
-      >
-        &nbsp;&nbsp;&nbsp;
-      </span>
-
-      <ul>
-        <li>
-          <span
-            style={{
-              fontFamily: "andale mono, times",
-              fontSize: "large",
-            }}
-          >
-            Classical Dance
-          </span>
-        </li>
-      </ul>
-
-      <span
-        style={{
-          fontFamily: "andale mono, times",
-          fontSize: "large",
+        dangerouslySetInnerHTML={{
+          __html: post?.excerpt || "",
         }}
-      >
-        &nbsp;&nbsp;&nbsp;
-      </span>
-
-      <ul>
-        <li>
-          <span
-            style={{
-              fontFamily: "andale mono, times",
-              fontSize: "large",
-            }}
-          >
-            Theatre
-          </span>
-        </li>
-      </ul>
-
-      <span
-        style={{
-          fontFamily: "andale mono, times",
-          fontSize: "large",
-        }}
-      >
-        &nbsp;&nbsp;&nbsp;
-      </span>
-
-      <ul>
-        <li>
-          <span
-            style={{
-              fontFamily: "andale mono, times",
-              fontSize: "large",
-            }}
-          >
-            Vocal Music
-          </span>
-        </li>
-      </ul>
-
-      <span
-        style={{
-          fontFamily: "andale mono, times",
-          fontSize: "large",
-        }}
-      >
-        &nbsp;&nbsp;&nbsp;
-      </span>
-
-      <ul>
-        <li>
-          <span
-            style={{
-              fontFamily: "andale mono, times",
-              fontSize: "large",
-            }}
-          >
-            Instrumental Music
-          </span>
-        </li>
-      </ul>
-
-      <span
-        style={{
-          fontFamily: "andale mono, times",
-          fontSize: "large",
-        }}
-      >
-        &nbsp;
-      </span>
-
-      <p></p>
+      />
     </div>
   );
 }
