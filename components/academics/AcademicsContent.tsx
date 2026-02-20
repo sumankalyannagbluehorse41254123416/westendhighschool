@@ -1,21 +1,51 @@
-export default function AcademicsContent() {
+import { fetchPageData } from "@/services/fetchBlog.service";
+import { headers } from "next/headers";
+
+interface BlogPost {
+  title?: string;
+  excerpt?: string;
+}
+
+export default async function AcademicsContent() {
+  const rqHeaders = await headers();
+
+  const host = rqHeaders.get("host") || "localhost:3000";
+  const headersObj = Object.fromEntries(rqHeaders.entries());
+
+  let siteData: any = {};
+
+  try {
+    siteData = await fetchPageData(
+      { host, ...headersObj },
+      "4d033523-47cc-4b85-b62b-04f8a238001e"
+    );
+  } catch (error) {
+    console.error("Blog fetch failed");
+    return null;
+  }
+
+  const posts: BlogPost[] = siteData?.userSinglePostdata || [];
+
+  if (!posts.length) {
+    console.warn("No blog data found");
+    return null;
+  }
+
+  // ✅ Use index 4 (with safe fallback)
+  const post =  posts[0];
+
   return (
     <div className="inner_con">
-      <p>
-        West End School, Jhargram, stands tall as a commemorative edifice of the
-        glorious milieu of the late eighteenth and early nineteenth century
-        Renaissance that swept across Bengal. From the early nineteenth century
-        to the present date, Hindu School has splendidly lived up to its
-        reputation of being a center of academic excellence. A long list of
-        outstanding results in academia right from the year of 1878 till date
-        provides a germane testimony.
-        <br /><br />
-        We have collected these data from the Hindu School Patrika
-        (1986-1989, 1997-1998 &amp; 2000-2001) editions; any omission is strictly
-        involuntary and deeply regretted. Any addition/correction to this data
-        would be highly appreciated and is requested to be communicated to the
-        web team.
-      </p>
+      <div
+        style={{
+          textAlign: "justify",
+          fontSize: "large",
+          fontFamily: "book antiqua, palatino",
+        }}
+        dangerouslySetInnerHTML={{
+          __html: post?.excerpt || "",
+        }}
+      />
     </div>
   );
 }

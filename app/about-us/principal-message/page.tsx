@@ -1,7 +1,5 @@
 import InnerContent from "@/components/about-us/about-mission/InnerContent";
 import PrincipalBanner from "@/components/about-us/principal-message/PrincipalBanner";
-import WhychooseBanner from "@/components/about-us/why-choose-us/WhychooseBanner";
-import AboutSection from "@/components/about-us/why-choose-us/AboutSection";
 import { fetchPageData } from "@/services/fetchData.service";
 import { headers } from "next/headers";
 
