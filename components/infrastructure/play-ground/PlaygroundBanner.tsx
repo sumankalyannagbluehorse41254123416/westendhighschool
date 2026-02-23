@@ -1,84 +1,83 @@
-import Image from "next/image";
+"use client";
 
-export default function PlaygroundBanner() {
+import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+/* ---------------- Types ---------------- */
+
+interface Section {
+  title?: string;
+  shortDescription?: string;
+  image?: string;
+  subsections?: Section[];
+}
+
+interface Props {
+  section?: Section;
+}
+
+/* ---------------- Helper ---------------- */
+
+const stripHtml = (html?: string) =>
+  html ? html.replace(/<[^>]*>/g, "") : "";
+
+/* ---------------- Component ---------------- */
+
+export default function PlaygroundBanner({ section }: Props) {
+  const slides = section?.subsections || [];
+
   return (
-    <div id="banner" role="banner">
-      <div className="flexslider">
-        <div className="banner_wrap">
-          <ul className="banner_slide slick-initialized slick-slider">
-            <div
-              className="slick-list draggable"
-              style={{ height: "732px" }}
+    <div className="banner_wrap">
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay]}
+        navigation={false}
+        pagination={false}
+        autoplay={{ delay: 3000 }}
+        loop={true}
+        className="banner_slide"
+      >
+        {slides.map((sub, index) => (
+          <SwiperSlide key={index}>
+            <li
+              className="clone"
+              style={{
+                width: "100%",
+                float: "left",
+                display: "inline-block",
+                listStyle: "none",
+              }}
             >
               <div
-                className="slick-track"
                 style={{
-                  opacity: 1,
-                  width: "690px",
-                  transform: "translate3d(0px, 0px, 0px)",
+                  position: "relative",
+                  width: "100%",
+                  height: "732px",
                 }}
               >
-                <div
-                  className="slick-slide slick-current slick-active"
-                  data-slick-index="0"
-                  aria-hidden="false"
-                  style={{ width: "690px" }}
-                >
-                  <div>
-                    <li
-                      className="clone"
-                      aria-hidden="true"
-                      style={{
-                        width: "100%",
-                        float: "left",
-                        display: "inline-block",
-                      }}
-                    >
-                      <Image
-                        src="/images/DSCN1198.jpg"
-                        alt=""
-                        width={690}
-                        height={732}
-                        style={{ width: "100%" }}
-                        draggable={false}
-                      />
-
-                      <div className="banner_caption">
-                        <h2>LEARN TO LIVE</h2>
-                        <h3>LEARN TO GIVE</h3>
-                      </div>
-                    </li>
-                  </div>
-                </div>
+                <Image
+                  src={sub.image || "/images/placeholder.jpg"}
+                  alt={stripHtml(section?.title) || "banner"}
+                  fill
+                  draggable={false}
+                  style={{ objectFit: "cover" }}
+                  priority={index === 0}
+                />
               </div>
-            </div>
-          </ul>
-        </div>
 
-        <ol className="flex-control-nav flex-control-paging">
-          <li>
-            <a className="">1</a>
-          </li>
-          <li>
-            <a className="">2</a>
-          </li>
-          <li>
-            <a className="flex-active">3</a>
-          </li>
-          <li>
-            <a className="">4</a>
-          </li>
-        </ol>
-
-        <ul className="flex-direction-nav">
-          <li>
-            <a className="flex-prev" href="#"></a>
-          </li>
-          <li>
-            <a className="flex-next" href="#"></a>
-          </li>
-        </ul>
-      </div>
+              <div className="banner_caption">
+                <h2>{stripHtml(section?.title)}</h2>
+                <h3>{stripHtml(section?.shortDescription)}</h3>
+              </div>
+            </li>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
-}
+};
+
