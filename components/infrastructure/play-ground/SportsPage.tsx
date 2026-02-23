@@ -1,32 +1,53 @@
 import Image from "next/image";
 
-export default function SportsPage() {
+/* ---------------- Types ---------------- */
+
+interface Section {
+  shortDescription?: string;
+  image?: string;
+  title?: string;
+}
+
+interface Props {
+  section?: Section;
+}
+
+export default function SportsPage({ section }: Props) {
+  if (!section) return null;
+
   return (
     <div className="inner_con">
-      <p>
-        <span style={{ fontFamily: "andale mono, times", fontSize: "large" }}>
-          Much stress is raid upon games and sports . In fact the participation
-          ofthe srudents in games, sports and physical exercise ls compulsorv.
-          There is a body trained personel which takes care of this part of
-          educarion in this institutition .Under the supervision of qualified
-          instructors and trainers students are taught driils . parades and
-          phvsical exercises . The school has play grounds of its own . Foot ball
-          , cricket . volley ball basket ball and Badminton are played here .
-          Facilities are also available for popular indoor games like
-          table-tennis , carrom etc. The annual spotrs meet, foot ball and
-          cricket tournaments are conducted class wise/hose wise.
-        </span>
-      </p>
-      <div>
-        <Image
-          className="alignnone size-medium wp-image-185"
-          style={{ verticalAlign: "baseline", display:"flex", margin:"10px auto", width:"auto"}}
-          src="/images/28-10-300x225.jpg"
-          alt=""
-          width="500"
-          height="325"
-        />
-      </div>
+      {section.shortDescription && (
+        <p>
+          <span
+            style={{
+              fontFamily: "andale mono, times",
+              fontSize: "large",
+            }}
+            dangerouslySetInnerHTML={{
+              __html: section.shortDescription,
+            }}
+          />
+        </p>
+      )}
+
+      {section.image && (
+        <div>
+          <Image
+            className="alignnone size-medium wp-image-185"
+            style={{
+              verticalAlign: "baseline",
+              display: "flex",
+              margin: "10px auto",
+              width: "auto",
+            }}
+            src={section.image}
+            alt={section.title || "Sports Image"}
+            width={500}
+            height={325}
+          />
+        </div>
+      )}
     </div>
   );
 }
