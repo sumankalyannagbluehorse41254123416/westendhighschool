@@ -1,19 +1,16 @@
 import ContactBanner from "@/components/contact-us/ContactBanner";
 import ContactPage from "@/components/contact-us/ContactPage";
 import { fetchPageData } from "@/services/fetchData.service";
+import { fetchFormFields } from "@/services/fetchFormFields";
 import { headers } from "next/headers";
-
-/* ---------------- Types ---------------- */
 
 interface Section {
   title?: string;
-  shortDescription?: string;
-  description?: string;
-  image?: string;
   bannerImage?: string;
-  subsections?: Section[];
   [key: string]: unknown;
+  
 }
+
 
 interface SiteData {
   pageItemdataWithSubsection?: Section[];
@@ -21,35 +18,48 @@ interface SiteData {
     pageItemdataWithSubsection?: Section[];
   };
 }
+
 export default async function Contact() {
   const rqHeaders = await headers();
-
   const host = rqHeaders.get("host") || "localhost:3000";
-  const headersObj = Object.fromEntries(rqHeaders.entries());
 
   let siteData: SiteData = {};
 
   try {
     siteData = await fetchPageData(
-      { host, ...headersObj },
-      "3653c9cc-72b4-434f-b3f1-823bbf55f6cf",
+      { host },
+      "3653c9cc-72b4-434f-b3f1-823bbf55f6cf"
     );
   } catch (error) {
-    console.error("Fetch error:", error);
+    console.error("CMS Fetch error:", error);
   }
-
-  /* ---------------- Extract Sections ---------------- */
 
   const sections =
     siteData.pageItemdataWithSubsection ||
     siteData.data?.pageItemdataWithSubsection ||
     [];
 
-  const bannerSection: Section | undefined = sections[0];
+  const bannerSection = sections[0];
 
-  return<>
-  <ContactBanner section={bannerSection}/>     
-  <ContactPage />
-    </>;
+  let form = null;
+  let fields: any[] = [];
+
+  try {
+    const formRes = await fetchFormFields(
+      { host },
+      process.env.FROM_UID || process.env.NEXT_PUBLIC_FROM_UID
+    );
+
+    form = formRes?.form || null;
+    fields = formRes?.fields || [];
+  } catch (err) {
+    console.error("Form fetch error:", err);
+  }
+
+  return (
+    <>
+      <ContactBanner section={bannerSection} />
+      <ContactPage fields={fields} />
+    </>
+  );
 }
-
