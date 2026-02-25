@@ -39,8 +39,7 @@ export default async function InnerContent() {
       <div
         style={{
           textAlign: "justify",
-          fontSize: "large",
-          fontFamily: "book antiqua, palatino",
+          fontSize: "16px",
         }}
         dangerouslySetInnerHTML={{
           __html: post?.excerpt || "",
