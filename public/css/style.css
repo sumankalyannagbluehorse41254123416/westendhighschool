@@ -12,6 +12,13 @@ body {
 	margin: 0;
 	overflow-x: hidden;
 }
+/*css added*/
+.innermiddle{
+	background-color: white;
+	color: black;
+}
+
+/* css add end */
 
 ul,
 li {
@@ -808,6 +815,7 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 
 .contact_header {
 	padding: 20px;
+	background-color: white;
 }
 
 .contact_header .inner_con {
@@ -1143,7 +1151,7 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 }
 
 .wlcm_txt {
-	color: #FFFFFF;
+	color: black;
 	font-family: 'Monotype Corsiva';
 	font-size: 24px;
 	left: 13%;
@@ -1155,7 +1163,9 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 .headerx {
 	margin-top: 5%;
 }
-
+b{
+	color: black;
+}
 .lib_tb {
 	/* width: 411px;
 	float: left; */
@@ -1166,6 +1176,7 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 	border-radius: 5px;
 	margin-bottom: 5px;
 	background-color: #fff;
+	border: none;
 }
 
 .contact_header textarea {
@@ -1203,7 +1214,7 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 
 .enquiry img {
 	position: absolute;
-	top: -9px;
+	top: 0px;
 	left: 18px;
 	width: 90%;
 	height: 8%;
@@ -1228,7 +1239,7 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 }
 
 .about-text p {
-	color: #fff;
+	color: black;
 }
 
 .addmi {
@@ -1489,7 +1500,8 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 }
 
 .general_info_con.inner_con p {
-	color: #fff;
+	color: black;
+	font-size: 16px;
 }
 
 .menu_bar ul li {
