@@ -1155,6 +1155,12 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 	float: left; */
 }
 
+@media (max-width:768px) {
+	.lib_tb iframe{
+		width: 100% !important;
+	}
+}
+
 .contact_header .input_area input {
 	padding: 5px;
 	border-radius: 5px;
@@ -1185,6 +1191,12 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 	min-height: 330px;
 	padding: 6% 6% 0;
 	width: 94%;
+}
+
+@media (max-width:991px){
+	.inner_enq{
+		width: 100%;
+	}
 }
 
 .enquiry {
