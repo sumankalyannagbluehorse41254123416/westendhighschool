@@ -33,7 +33,7 @@ export default function Team({ subsections }: Props) {
         >
           {subsections.map((item, index) => (
             <li key={index}>
-              <Link href={`/staffdetails/${index}`}>
+              <Link href={`#`}>
                 <Image
                   src={item.image || "/images/default.jpg"}
                   alt={item.title || "staff"}

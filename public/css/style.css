@@ -12,6 +12,13 @@ body {
 	margin: 0;
 	overflow-x: hidden;
 }
+/*css added*/
+.innermiddle{
+	background-color: white;
+	color: black;
+}
+
+/* css add end */
 
 ul,
 li {
@@ -51,6 +58,9 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 		grid-template-columns: repeat(4, 1fr);
 		gap: 15px;
 	}
+	   .inner_enq {
+        width: 100%;
+    }
 }
 
 @media (max-width:768px) {
@@ -58,6 +68,9 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 		grid-template-columns: repeat(3, 1fr);
 		gap: 10px;
 	}
+	 .lib_tb iframe {
+        width: 100% !important;
+    }
 }
 
 @media (max-width:575px) {
@@ -802,6 +815,7 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 
 .contact_header {
 	padding: 20px;
+	background-color: white;
 }
 
 .contact_header .inner_con {
@@ -1063,7 +1077,7 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 .inner_con {
 	width: 100%;
 	padding: 1%;
-	border: 1px solid #61a900;
+	/* border: 1px solid #61a900; */
 	/* margin-left: 2%; */
 	border-radius: 0px 5px 5px 5px;
 	min-height: 490px;
@@ -1137,7 +1151,7 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 }
 
 .wlcm_txt {
-	color: #FFFFFF;
+	color: black;
 	font-family: 'Monotype Corsiva';
 	font-size: 24px;
 	left: 13%;
@@ -1149,7 +1163,9 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 .headerx {
 	margin-top: 5%;
 }
-
+b{
+	color: black;
+}
 .lib_tb {
 	/* width: 411px;
 	float: left; */
@@ -1165,6 +1181,8 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 	padding: 5px;
 	border-radius: 5px;
 	margin-bottom: 5px;
+	background-color: #fff;
+	border: none;
 }
 
 .contact_header textarea {
@@ -1208,7 +1226,7 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 
 .enquiry img {
 	position: absolute;
-	top: -9px;
+	top: 0px;
 	left: 18px;
 	width: 90%;
 	height: 8%;
@@ -1233,10 +1251,11 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 }
 
 .about-text p {
-	color: #fff;
+	color: black;
 }
 
 .addmi {
+	color: #000;
 	position: absolute;
 	top: 0%;
 	font-family: 'Monotype Corsiva';
@@ -1252,6 +1271,7 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 }
 
 #btn_enq {
+	color: #000;
 	width: 30%;
 	padding: 2%;
 	border-radius: 6px;
@@ -1276,6 +1296,7 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 }
 
 #btn_rst {
+	color: #000;
 	width: 30%;
 	padding: 2%;
 	border-radius: 6px;
@@ -1481,15 +1502,18 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 
 .mobile textarea {
 	width: 100%;
+	background-color: white;
 }
 
 .inner_con p {
 	padding-top: 20px;
+	color: black;
 
 }
 
 .general_info_con.inner_con p {
-	color: #fff;
+	color: black;
+	font-size: 16px;
 }
 
 .menu_bar ul li {
