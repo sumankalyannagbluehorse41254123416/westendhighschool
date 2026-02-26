@@ -810,7 +810,7 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 
 .innermiddle {
 	width: 100%;
-	float: left;
+	/* float: left; */
 }
 
 .contact_header {
@@ -1248,6 +1248,10 @@ b{
 
 .about-text .header_img {
 	padding-bottom: 10px;
+
+}
+.header_img{
+	padding: 0 2%;
 }
 
 .about-text p {

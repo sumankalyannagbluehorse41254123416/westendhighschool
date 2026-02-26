@@ -72,7 +72,7 @@ export default async function BannerSection() {
 
   return (
     <div id="banner" role="banner">
-      ok
+      
       <div className="flexslider">
         <div className="banner_wrap">
           <ul className="banner_slide">
