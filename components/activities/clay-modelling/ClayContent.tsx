@@ -1,21 +1,51 @@
-export default function ClayContent() {
+import { fetchPageData } from "@/services/fetchBlog.service";
+import { headers } from "next/headers";
+
+interface BlogPost {
+  title?: string;
+  excerpt?: string;
+}
+
+export default async function ClayContent() {
+  const rqHeaders = await headers();
+
+  const host = rqHeaders.get("host") || "localhost:3000";
+  const headersObj = Object.fromEntries(rqHeaders.entries());
+
+  let siteData: any = {};
+
+  try {
+    siteData = await fetchPageData(
+      { host, ...headersObj },
+      "b3badc58-2a69-4402-b868-9449b8ba5069"
+    );
+  } catch (error) {
+    console.error("Blog fetch failed");
+    return null;
+  }
+
+  const posts: BlogPost[] = siteData?.userSinglePostdata || [];
+
+  if (!posts.length) {
+    console.warn("No blog data found");
+    return null;
+  }
+
+  // ✅ Use index 4 (with safe fallback)
+  const post = posts[0];
+
   return (
     <div className="inner_con">
-      <p>
-        <span
-          style={{
-            fontFamily: "andale mono, times",
-            fontSize: "large",
-          }}
-        >
-          Clay Modelling is taught from the Pre-primary to the Secondary level
-          and is a perennial favourite of the children. The tactile, hands-on
-          nature of this activity makes it engrossing for all age groups and
-          also offers scope for a high degree of creativity. Students enjoy
-          working on the Potter’s wheel. There is also provision for an electric
-          furnace where firing of the artifacts is done.
-        </span>
-      </p>
+      <div
+        style={{
+          textAlign: "justify",
+          fontSize: "large",
+          fontFamily: "book antiqua, palatino",
+        }}
+        dangerouslySetInnerHTML={{
+          __html: post?.excerpt || "",
+        }}
+      />
     </div>
   );
 }
