@@ -12,8 +12,9 @@ body {
 	margin: 0;
 	overflow-x: hidden;
 }
+
 /*css added*/
-.innermiddle{
+.innermiddle {
 	background-color: white;
 	color: black;
 }
@@ -58,9 +59,10 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 		grid-template-columns: repeat(4, 1fr);
 		gap: 15px;
 	}
-	   .inner_enq {
-        width: 100%;
-    }
+
+	.inner_enq {
+		width: 100%;
+	}
 }
 
 @media (max-width:768px) {
@@ -68,9 +70,10 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 		grid-template-columns: repeat(3, 1fr);
 		gap: 10px;
 	}
-	 .lib_tb iframe {
-        width: 100% !important;
-    }
+
+	.lib_tb iframe {
+		width: 100% !important;
+	}
 }
 
 @media (max-width:575px) {
@@ -1086,6 +1089,20 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 	padding-left: 2%;
 	padding-right: 2%;
 }
+@media (max-width:768px){
+	.inner_con{
+		padding: 1% 4%;
+	}
+}
+.inner_con ul li,
+.inner_con ol li {
+	margin-bottom: 15px;
+}
+
+.inner_con ul,
+.inner_con ol {
+	margin-top: 10px;
+}
 
 .wlcm1 {
 	margin-left: 2%;
@@ -1163,16 +1180,18 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 .headerx {
 	margin-top: 5%;
 }
-b{
+
+b {
 	color: black;
 }
+
 .lib_tb {
 	/* width: 411px;
 	float: left; */
 }
 
 @media (max-width:768px) {
-	.lib_tb iframe{
+	.lib_tb iframe {
 		width: 100% !important;
 	}
 }
@@ -1211,8 +1230,8 @@ b{
 	width: 94%;
 }
 
-@media (max-width:991px){
-	.inner_enq{
+@media (max-width:991px) {
+	.inner_enq {
 		width: 100%;
 	}
 }
@@ -1250,7 +1269,8 @@ b{
 	padding-bottom: 10px;
 
 }
-.header_img{
+
+.header_img {
 	padding: 0 2%;
 }
 
