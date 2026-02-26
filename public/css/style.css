@@ -1094,6 +1094,13 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 		padding: 1% 4%;
 	}
 }
+.about-text p{
+	font-size: 16px;
+}
+
+.about-text .wlcm_txt{
+	font-size: 24px;
+}
 .inner_con ul li,
 .inner_con ol li {
 	margin-bottom: 15px;
@@ -1266,7 +1273,7 @@ b {
 }
 
 .about-text .header_img {
-	padding-bottom: 10px;
+	padding-bottom: 0px;
 
 }
 
