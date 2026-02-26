@@ -1,5 +1,5 @@
 import HostelBanner from "@/components/infrastructure/hostel/HostelBanner";
-import HostelContent from "@/components/infrastructure/hostel/HostelPage";
+import HostelPage from "@/components/infrastructure/hostel/HostelPage";
 import { fetchPageData } from "@/services/fetchData.service";
 import { headers } from "next/headers";
 
@@ -12,7 +12,6 @@ interface Section {
   image?: string;
   bannerImage?: string;
   subsections?: Section[];
-  [key: string]: unknown;
 }
 
 interface SiteData {
@@ -21,6 +20,7 @@ interface SiteData {
     pageItemdataWithSubsection?: Section[];
   };
 }
+
 export default async function Hostel() {
   const rqHeaders = await headers();
 
@@ -32,25 +32,28 @@ export default async function Hostel() {
   try {
     siteData = await fetchPageData(
       { host, ...headersObj },
-      "3653c9cc-72b4-434f-b3f1-823bbf55f6cf",
+      "3653c9cc-72b4-434f-b3f1-823bbf55f6cf"
     );
   } catch (error) {
     console.error("Fetch error:", error);
   }
-
-  /* ---------------- Extract Sections ---------------- */
 
   const sections =
     siteData.pageItemdataWithSubsection ||
     siteData.data?.pageItemdataWithSubsection ||
     [];
 
-  const bannerSection: Section | undefined = sections[0];
+  const bannerSection = sections[0];
+  const mainSection = sections[9];   // First part
+  const bottomSection = sections[10]; // Second part
 
   return (
     <>
       <HostelBanner section={bannerSection} />
-      <HostelContent />
+      <HostelPage
+        mainSection={mainSection}
+        bottomSection={bottomSection}
+      />
     </>
   );
 }

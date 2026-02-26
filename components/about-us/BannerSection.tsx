@@ -1,108 +1,83 @@
+"use client";
+
 import Image from "next/image";
-import { fetchPageData } from "@/services/fetchBanner.service";
-import { headers } from "next/headers";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
-/* ---------------- Helper ---------------- */
-
-const stripHtml = (html?: string) =>
-  html ? html.replace(/<[^>]*>/g, "") : "";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 /* ---------------- Types ---------------- */
 
 interface Section {
   title?: string;
   shortDescription?: string;
-  description?: string;
   image?: string;
-  bannerImage?: string;
   subsections?: Section[];
-  [key: string]: unknown;
 }
 
-interface SiteData {
-  pageItemdataWithSubsection?: Section[];
-  data?: {
-    pageItemdataWithSubsection?: Section[];
-  };
+interface Props {
+  section?: Section;
 }
 
-/* ---------------- Server Component ---------------- */
+/* ---------------- Helper ---------------- */
 
-export default async function BannerSection() {
-  // 1️⃣ Read request headers
-  const rqHeaders = headers();
-  const host = (await rqHeaders).get("host") || "localhost:3000";
-  const headersObj = Object.fromEntries((await rqHeaders).entries());
+const stripHtml = (html?: string) =>
+  html ? html.replace(/<[^>]*>/g, "") : "";
 
-  // 2️⃣ Fetch banner data
-  let siteData: any = {};
+/* ---------------- Component ---------------- */
 
-  try {
-    siteData = await fetchPageData(
-      { host, ...headersObj },
-      "ec136779-28a8-43b8-b180-7c36440fe58f" // ✅ Banner ID
-    );
-    // console.log("SITE DATA:", siteData);
-  } catch (error) {
-    console.error("Banner fetch failed");
-    return null;
-  }
-  
-
-  // 3️⃣ Normalize response
-  const sections = siteData.singlebannerData
-  ;
-
-  if (!sections.length) {
-    console.warn("No banner data found");
-    return null;
-  }
-
-  // 4️⃣ Banner index = 0
-  const banner = sections[0];
-
-  const imageUrl =
-    banner.desktopImage ||
-    "/images/default-banner.jpg";
-
-  const title = stripHtml(banner.title);
-  const subtitle = stripHtml(banner.description);
-
-  /* ---------------- JSX ---------------- */
+export default function BannerSection({ section }: Props) {
+  const slides = section?.subsections || [];
 
   return (
-    <div id="banner" role="banner">
-      
-      <div className="flexslider">
-        <div className="banner_wrap">
-          <ul className="banner_slide">
+    <div className="banner_wrap">
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay]}
+        navigation={false}
+        pagination={false}
+        autoplay={{ delay: 3000 }}
+        loop={true}
+        className="banner_slide"
+      >
+        {slides.map((sub, index) => (
+          <SwiperSlide key={index}>
             <li
+              className="clone"
               style={{
                 width: "100%",
                 float: "left",
                 display: "inline-block",
+                listStyle: "none",
               }}
             >
-              {/* -------- Banner Image -------- */}
-              <Image
-                src={imageUrl}
-                alt={title || "Banner"}
-                width={690}
-                height={732}
-                style={{ width: "100%", height: "auto" }}
-                draggable={false}
-                priority
-              />
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  height: "732px",
+                }}
+              >
+                <Image
+                  src={sub.image || "/images/placeholder.jpg"}
+                  alt={stripHtml(section?.title) || "banner"}
+                  fill
+                  draggable={false}
+                  style={{ objectFit: "cover" }}
+                  priority={index === 0}
+                />
+              </div>
 
-              {/* -------- Banner Caption -------- */}
               <div className="banner_caption">
-                {title && <h2>{title}</h2>}
-                {subtitle && <h3>{subtitle}</h3>}
+                <h2>{stripHtml(section?.title)}</h2>
+                <h3>{stripHtml(section?.shortDescription)}</h3>
               </div>
             </li>
-          </ul>
-        </div>
-      </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
-}
+};
+
