@@ -1,38 +1,24 @@
-import { fetchPageData } from "@/services/fetchBlog.service";
-import { headers } from "next/headers";
-
-interface BlogPost {
+interface Section {
   title?: string;
-  excerpt?: string;
+  description?: string;
+  subsections?: Section[];
 }
 
-export default async function Transport() {
-  const rqHeaders = await headers();
+interface Props {
+  section?: Section;
+}
 
-  const host = rqHeaders.get("host") || "localhost:3000";
-  const headersObj = Object.fromEntries(rqHeaders.entries());
+export default function Transport({ section }: Props) {
+  // 🔥 Clean unwanted tags if CMS sends <p> <br> &nbsp;
+  const cleanText = (text?: string) => {
+    if (!text) return "";
 
-  let siteData: any = {};
-
-  try {
-    siteData = await fetchPageData(
-      { host, ...headersObj },
-      "e391fe7e-856f-416e-b05c-f1a6e1ef06d7"
-    );
-  } catch (error) {
-    console.error("Blog fetch failed");
-    return null;
-  }
-
-  const posts: BlogPost[] = siteData?.userSinglePostdata || [];
-
-  if (!posts.length) {
-    console.warn("No blog data found");
-    return null;
-  }
-
-  // ✅ Use index 4 (with safe fallback)
-  const post = posts[0];
+    return text
+      .replace(/<\/?p>/g, "")
+      .replace(/<br\s*\/?>/g, "")
+      .replace(/&nbsp;/g, " ")
+      .trim();
+  };
 
   return (
     <div className="inner_con">
@@ -40,12 +26,34 @@ export default async function Transport() {
         style={{
           textAlign: "justify",
           fontSize: "large",
-          fontFamily: "book antiqua, palatino",
+          fontFamily: '"Book Antiqua", Palatino, serif',
         }}
-        dangerouslySetInnerHTML={{
-          __html: post?.excerpt || "",
-        }}
-      />
+      >
+        {/* Main Ordered List */}
+        <ol style={{ paddingLeft: "20px" }}>
+          {section?.subsections?.map((rule, index) => (
+            <li key={index}>
+              {cleanText(rule.description)}
+
+              {/* ✅ Nested UL if sub-subsections exist */}
+              {rule.subsections && rule.subsections.length > 0 && (
+                <ul
+                  style={{
+                    paddingLeft: "20px",
+                    listStyleType: "disc",
+                  }}
+                >
+                  {rule.subsections.map((subRule, subIndex) => (
+                    <li key={subIndex}>
+                      {cleanText(subRule.description)}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ol>
+      </div>
     </div>
   );
 }

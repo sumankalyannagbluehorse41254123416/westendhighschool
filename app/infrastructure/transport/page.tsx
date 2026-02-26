@@ -1,6 +1,5 @@
 import TransportBanner from "@/components/infrastructure/transport/TransportBanner";
 import Transport from "@/components/infrastructure/transport/Transport";
-
 import { fetchPageData } from "@/services/fetchData.service";
 import { headers } from "next/headers";
 
@@ -13,7 +12,6 @@ interface Section {
   image?: string;
   bannerImage?: string;
   subsections?: Section[];
-  [key: string]: unknown;
 }
 
 interface SiteData {
@@ -22,6 +20,7 @@ interface SiteData {
     pageItemdataWithSubsection?: Section[];
   };
 }
+
 export default async function Transportpage() {
   const rqHeaders = await headers();
 
@@ -33,25 +32,24 @@ export default async function Transportpage() {
   try {
     siteData = await fetchPageData(
       { host, ...headersObj },
-      "3653c9cc-72b4-434f-b3f1-823bbf55f6cf",
+      "3653c9cc-72b4-434f-b3f1-823bbf55f6cf"
     );
   } catch (error) {
     console.error("Fetch error:", error);
   }
-
-  /* ---------------- Extract Sections ---------------- */
 
   const sections =
     siteData.pageItemdataWithSubsection ||
     siteData.data?.pageItemdataWithSubsection ||
     [];
 
-  const bannerSection: Section | undefined = sections[0];
+  const bannerSection = sections[0];
+  const transportSection = sections[11]; // ✅ All LI from here
 
   return (
     <>
       <TransportBanner section={bannerSection} />
-      <Transport />
+      <Transport section={transportSection} />
     </>
   );
 }
