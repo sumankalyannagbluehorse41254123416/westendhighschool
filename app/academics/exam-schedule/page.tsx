@@ -21,35 +21,35 @@ interface SiteData {
     pageItemdataWithSubsection?: Section[];
   };
 }
-export default async function ExamSchedule() {
-  const rqHeaders = await headers();
-    
-      const host = rqHeaders.get("host") || "localhost:3000";
-      const headersObj = Object.fromEntries(rqHeaders.entries());
-    
-      let siteData: SiteData = {};
-    
-      try {
-        siteData = await fetchPageData(
-          { host, ...headersObj },
-          "3653c9cc-72b4-434f-b3f1-823bbf55f6cf",
-        );
-      } catch (error) {
-        console.error("Fetch error:", error);
-      }
-    
-      /* ---------------- Extract Sections ---------------- */
-    
-      const sections =
-        siteData.pageItemdataWithSubsection ||
-        siteData.data?.pageItemdataWithSubsection ||
-        [];
-    
-      const bannerSection: Section | undefined = sections[0];
-  return (
-    <>
-      <ExamBanner section={bannerSection} />
-      <ExamContain/>
-    </>
-  );
+export default async function ExamSchedulePage() {
+     const rqHeaders = await headers();
+      
+        const host = rqHeaders.get("host") || "localhost:3000";
+        const headersObj = Object.fromEntries(rqHeaders.entries());
+      
+        let siteData: SiteData = {};
+      
+        try {
+          siteData = await fetchPageData(
+            { host, ...headersObj },
+            "3653c9cc-72b4-434f-b3f1-823bbf55f6cf",
+          );
+        } catch (error) {
+          console.error("Fetch error:", error);
+        }
+      
+        /* ---------------- Extract Sections ---------------- */
+      
+        const sections =
+          siteData.pageItemdataWithSubsection ||
+          siteData.data?.pageItemdataWithSubsection ||
+          [];
+      
+        const bannerSection: Section | undefined = sections[0];
+    return (
+        <>
+        <ExamBanner section={bannerSection}/>
+        <ExamContain/>
+        </>
+    );
 }

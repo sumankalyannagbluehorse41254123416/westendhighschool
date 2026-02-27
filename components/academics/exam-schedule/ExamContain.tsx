@@ -6,7 +6,7 @@ interface BlogPost {
   excerpt?: string;
 }
 
-export default async function SyllabusContent() {
+export default async function ExamContain() {
   const rqHeaders = await headers();
 
   const host = rqHeaders.get("host") || "localhost:3000";
