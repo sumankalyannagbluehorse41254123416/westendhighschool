@@ -1,56 +1,51 @@
-import AcademicBanner from "@/components/academics/AcademicBanner";
-import AcademicsContent from "@/components/academics/AcademicsContent";
-import { fetchPageData } from "@/services/fetchData.service";
+import { fetchPageData } from "@/services/fetchBlog.service";
 import { headers } from "next/headers";
 
-/* ---------------- Types ---------------- */
-
-interface Section {
+interface BlogPost {
   title?: string;
-  shortDescription?: string;
-  description?: string;
-  image?: string;
-  bannerImage?: string;
-  subsections?: Section[];
-  [key: string]: unknown;
+  excerpt?: string;
 }
 
-interface SiteData {
-  pageItemdataWithSubsection?: Section[];
-  data?: {
-    pageItemdataWithSubsection?: Section[];
-  };
-}
-export default async function AcademicsPage() {
-   const rqHeaders = await headers();
-  
-    const host = rqHeaders.get("host") || "localhost:3000";
-    const headersObj = Object.fromEntries(rqHeaders.entries());
-  
-    let siteData: SiteData = {};
-  
-    try {
-      siteData = await fetchPageData(
-        { host, ...headersObj },
-        "3653c9cc-72b4-434f-b3f1-823bbf55f6cf",
-      );
-    } catch (error) {
-      console.error("Fetch error:", error);
-    }
-  
-    /* ---------------- Extract Sections ---------------- */
-  
-    const sections =
-      siteData.pageItemdataWithSubsection ||
-      siteData.data?.pageItemdataWithSubsection ||
-      [];
-  
-    const bannerSection: Section | undefined = sections[0];
-    
+export default async function AcademicsContent() {
+  const rqHeaders = await headers();
+
+  const host = rqHeaders.get("host") || "localhost:3000";
+  const headersObj = Object.fromEntries(rqHeaders.entries());
+
+  let siteData: any = {};
+
+  try {
+    siteData = await fetchPageData(
+      { host, ...headersObj },
+      "4d033523-47cc-4b85-b62b-04f8a238001e"
+    );
+  } catch (error) {
+    console.error("Blog fetch failed");
+    return null;
+  }
+
+  const posts: BlogPost[] = siteData?.userSinglePostdata || [];
+
+  if (!posts.length) {
+    console.warn("No blog data found");
+    return null;
+  }
+
+  // ✅ Use index 4 (with safe fallback)
+  const post =  posts[0];
+
   return (
-    <>
-      <AcademicBanner section={bannerSection} />
-      <AcademicsContent />
-    </>
+    <div className="inner_con">
+      <div
+        style={{
+          textAlign: "justify",
+          fontSize: "large",
+          fontFamily: "book antiqua, palatino",
+        }}
+        dangerouslySetInnerHTML={{
+          __html: post?.excerpt || "",
+        }}
+      />
+    </div>
   );
 }
