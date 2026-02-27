@@ -1,12 +1,24 @@
+import { ACADEMICS_PAGE_IDS } from "@/constant/academics";
 import { fetchPageData } from "@/services/fetchBlog.service";
 import { headers } from "next/headers";
+import { notFound } from "next/navigation";
 
 interface BlogPost {
   title?: string;
   excerpt?: string;
 }
 
-export default async function SyllabusContent() {
+export default async function ExamContain({params}:{
+    params:Promise<{slug:string}>
+}) {
+    const {slug} = await params;
+
+    const id= ACADEMICS_PAGE_IDS[slug];
+
+    if(!id){
+        return notFound()
+    }
+
   const rqHeaders = await headers();
 
   const host = rqHeaders.get("host") || "localhost:3000";
@@ -17,7 +29,7 @@ export default async function SyllabusContent() {
   try {
     siteData = await fetchPageData(
       { host, ...headersObj },
-      "b4a4a908-dfcd-4197-981c-e74a2ef47d22"
+      id
     );
   } catch (error) {
     console.error("Blog fetch failed");
