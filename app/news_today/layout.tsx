@@ -1,6 +1,8 @@
-import NurseryAdmissionBanner from "@/components/news_today/admission-is-going-on-for-nursery/Nursery-admission-Banner";
+import AcademicBanner from "@/components/academics/AcademicBanner";
+
 import { fetchPageData } from "@/services/fetchData.service";
 import { headers } from "next/headers";
+import React, { FC } from "react";
 
 /* ---------------- Types ---------------- */
 
@@ -20,7 +22,8 @@ interface SiteData {
     pageItemdataWithSubsection?: Section[];
   };
 }
-export default async function NurseryAdmission() {
+
+const layout: FC<{ children: React.ReactNode }> = async ({ children }) => {
   const rqHeaders = await headers();
 
   const host = rqHeaders.get("host") || "localhost:3000";
@@ -44,13 +47,13 @@ export default async function NurseryAdmission() {
     siteData.data?.pageItemdataWithSubsection ||
     [];
 
-  const bannerSection: Section | undefined = sections[0]
-
-
+  const bannerSection: Section | undefined = sections[0];
   return (
     <>
- 
-   <NurseryAdmissionBanner section={bannerSection}/>
+      <AcademicBanner section={bannerSection} />
+      {children}
     </>
   );
-}
+};
+
+export default layout;

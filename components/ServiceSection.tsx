@@ -1,5 +1,6 @@
 "use client";
 
+import { NEWS_TODAY_PAGE_IDS } from "@/constant/news_today";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -34,10 +35,8 @@ export default function ServiceSection({ section, newsSection }: Props) {
 
   return (
     <div className="service_section03 container">
-      
       {/* LEFT SIDE */}
       <div className="service_left">
-        
         {/* Transport */}
         <div className="">
           <Link href="/infrastructure/transport">
@@ -64,9 +63,7 @@ export default function ServiceSection({ section, newsSection }: Props) {
                 )}
               </div>
 
-              <p>
-                {cleanText(subsection0?.description).slice(0, 140)}...
-              </p>
+              <p>{cleanText(subsection0?.description).slice(0, 140)}...</p>
             </div>
           </Link>
         </div>
@@ -97,62 +94,36 @@ export default function ServiceSection({ section, newsSection }: Props) {
                 )}
               </div>
 
-              <p>
-                {cleanText(subsection1?.description).slice(0, 140)}...
-              </p>
+              <p>{cleanText(subsection1?.description).slice(0, 140)}...</p>
             </div>
           </Link>
         </div>
-      
       </div>
 
       {/* RIGHT SIDE */}
       <div className="col-lg-5 col-md-5">
         <div className="news_box">
-          
           {/* Title from array index 3 */}
           <h3>{newsSection?.title}</h3>
 
           <ul>
-            <li>
-              <Link
-                href="/news_today/admission-is-going-on/"
-                style={{ color: "#333333" }}
-              >
-                {newsSubsections?.[0]?.title}
-              </Link>
-            </li>
+            {newsSubsections?.map((item, index) => {
+              const slug = Object.keys(NEWS_TODAY_PAGE_IDS)[index];
 
-            <li>
-              <Link
-                href="/news_today/post-for-assistant-teachers/"
-                style={{ color: "#333333" }}
-              >
-                {newsSubsections?.[1]?.title}
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                href="/news_today/admission-is-going-on-for-nursery/"
-                style={{ color: "#333333" }}
-              >
-                {newsSubsections?.[2]?.title}
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                href="/news_today/time-table-for-annual-examination/"
-                style={{ color: "#333333" }}
-              >
-                {newsSubsections?.[3]?.title}
-              </Link>
-            </li>
+              return (
+                <li key={index}>
+                  <Link
+                    href={`/news_today/${slug}`}
+                    style={{ color: "#333333" }}
+                  >
+                    {item?.title}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>
-
     </div>
   );
 }
