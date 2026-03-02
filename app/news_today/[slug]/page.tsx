@@ -47,7 +47,7 @@ export default async function NewsTodayContain({params}:{
   const post = posts[0];
 
   return (
-    <div className="container">
+    <div className="">
       <div className="innermiddle">
         <div className="clear"></div>
 

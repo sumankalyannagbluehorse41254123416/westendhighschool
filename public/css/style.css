@@ -1089,18 +1089,37 @@ p h1 h2 h3 h4 h5 h6 div ul li img {
 	padding-left: 2%;
 	padding-right: 2%;
 }
-@media (max-width:768px){
-	.inner_con{
+
+@media (max-width:768px) {
+	.inner_con {
 		padding: 1% 4%;
 	}
 }
-.about-text p{
+
+.about-text p {
 	font-size: 16px;
 }
 
-.about-text .wlcm_txt{
+.general_info_con ul {
+	padding-left: 40px;
+}
+
+@media (max-width:575px) {
+	.general_info_con ul {
+		padding-left: 20px;
+	}
+}
+
+.general_info_con ul li {
+	font-size: 18px;
+	font-family: "Book Antiqua", Palatino, serif;
+
+}
+
+.about-text .wlcm_txt {
 	font-size: 24px;
 }
+
 .inner_con ul li,
 .inner_con ol li {
 	margin-bottom: 15px;
